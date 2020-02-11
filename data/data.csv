@@ -1,24 +1,24 @@
 source,target,value,linkColor
-Root,Cancers and Other Neoplasms,50,#992b62,
-Root,Immune System Diseases,50,#405752
-Cancers and Other Neoplasms,Breast Cancer,50,#992b62
-Breast Cancer,Rehabilitation After Breast Cancer,5,#b33e5f
-Breast Cancer,Imaging With [11C]Martinostat in Breast Cancer,5,#b64d8f
-Breast Cancer,[18F] F-GLN by PET/CT in Breast Cancer,5,#ea688e
-Breast Cancer,Individualizing Surveillance Mammography for Older Breast Cancer Survivors,5,#e86fbc
-Breast Cancer,Elevate! : An Elderly Breast Cancer Cohort Study,5,#d13c5d
-Breast Cancer,Olaparib + Sapacitabine in BRCA Mutant Breast Cancer,5,#b72875
-Breast Cancer,Topical Calcipotriene Treatment for Breast Cancer Immunoprevention,5,#e53a8a
-Breast Cancer,"Young, Empowered & Strong (YES): The Young Women's Breast Cancer Study 2- Focus on Intervention Pilot",5,#cd35a1
-Breast Cancer,Supine MRI in Breast Cancer Patients Receiving Neoadjuvant Therapy,5,#ea2c68
-Immune System Diseases,"Diabetes Mellitus, Type 1",50,#405752
-"Diabetes Mellitus, Type 1",Carbohydrate Content in the Diet in Type 1 Diabetes,5,#396d64
-"Diabetes Mellitus, Type 1",ATG-GCSF in New Onset Type 1 Diabetes,5,#576f6a
-"Diabetes Mellitus, Type 1",Albiglutide Versus Placebo in Insulin-treated Subjects With New-onset Type 1 Diabetes Mellitus,5,#3c795f
-"Diabetes Mellitus, Type 1",A Study of Effects of Canagliflozin as Add-on Therapy to Insulin in the Treatment of Participants With Type 1 Diabetes Mellitus (T1DM),5,#339c6b
-"Diabetes Mellitus, Type 1",Cellular Therapy for Type 1 Diabetes Using Mesenchymal Stem Cells,5,#839c97
-"Diabetes Mellitus, Type 1","Sleep, Coping and Executive Functioning in Youth With Type 1 Diabetes",5,#5ea597
-"Diabetes Mellitus, Type 1",Efficacy of Coenzyme q10 in Pediatrics With Type 1 Diabetes Mellitus,5,#59c1a0
-"Diabetes Mellitus, Type 1",PK/PD Biosimilarity Study of Gan & Lee Insulin Glargine Injection vs.US & EU Lantus® in Type 1 Diabetes Mellitus Patients,5,#57e7a4
-"Diabetes Mellitus, Type 1",Physical Activity Monitoring Paediatric Type 1 Diabetes,5,#6fe7d7
-"Diabetes Mellitus, Type 1",Safety/Efficacy Study of Subcutaneously Injected Prandial Insulins Compared to Insulin Lispro Alone in Participants With Type 1 Diabetes Mellitus,5,#b4ddcd
+Root,Cancers and Other Neoplasms,9,#992b62
+Root,Immune System Diseases,10,#405752
+Cancers and Other Neoplasms,Breast Cancer,9,#992b62
+Breast Cancer,Rehabilitation After Breast Cancer,1,#b33e5f
+Breast Cancer,Imaging With [11C]Martinostat in Breast Cancer,1,#b64d8f
+Breast Cancer,[18F] F-GLN by PET/CT in Breast Cancer,1,#ea688e
+Breast Cancer,Individualizing Surveillance Mammography for Older Breast Cancer Survivors,1,#e86fbc
+Breast Cancer,Elevate! : An Elderly Breast Cancer Cohort Study,1,#d13c5d
+Breast Cancer,Olaparib + Sapacitabine in BRCA Mutant Breast Cancer,1,#b72875
+Breast Cancer,Topical Calcipotriene Treatment for Breast Cancer Immunoprevention,1,#e53a8a
+Breast Cancer,"Young, Empowered & Strong (YES): The Young Women's Breast Cancer Study 2- Focus on Intervention Pilot",1,#cd35a1
+Breast Cancer,Supine MRI in Breast Cancer Patients Receiving Neoadjuvant Therapy,1,#ea2c68
+Immune System Diseases,"Diabetes Mellitus, Type 1",10,#405752
+"Diabetes Mellitus, Type 1",Carbohydrate Content in the Diet in Type 1 Diabetes,1,#396d64
+"Diabetes Mellitus, Type 1",ATG-GCSF in New Onset Type 1 Diabetes,1,#576f6a
+"Diabetes Mellitus, Type 1",Albiglutide Versus Placebo in Insulin-treated Subjects With New-onset Type 1 Diabetes Mellitus,1,#3c795f
+"Diabetes Mellitus, Type 1",A Study of Effects of Canagliflozin as Add-on Therapy to Insulin in the Treatment of Participants With Type 1 Diabetes Mellitus (T1DM),1,#339c6b
+"Diabetes Mellitus, Type 1",Cellular Therapy for Type 1 Diabetes Using Mesenchymal Stem Cells,1,#839c97
+"Diabetes Mellitus, Type 1","Sleep, Coping and Executive Functioning in Youth With Type 1 Diabetes",1,#5ea597
+"Diabetes Mellitus, Type 1",Efficacy of Coenzyme q10 in Pediatrics With Type 1 Diabetes Mellitus,1,#59c1a0
+"Diabetes Mellitus, Type 1",PK/PD Biosimilarity Study of Gan & Lee Insulin Glargine Injection vs.US & EU Lantus® in Type 1 Diabetes Mellitus Patients,1,#57e7a4
+"Diabetes Mellitus, Type 1",Physical Activity Monitoring Paediatric Type 1 Diabetes,1,#6fe7d7
+"Diabetes Mellitus, Type 1",Safety/Efficacy Study of Subcutaneously Injected Prandial Insulins Compared to Insulin Lispro Alone in Participants With Type 1 Diabetes Mellitus,1,#b4ddcd
