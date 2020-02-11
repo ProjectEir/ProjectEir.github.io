@@ -1,3 +1,4 @@
+source, target, value, linkColor
 Root,Cancers and Other Neoplasms,50,#992b62,
 Root,Immune System Diseases,50,#405752
 Cancers and Other Neoplasms,Breast Cancer,50,#992b62
