@@ -5,7 +5,43 @@
   --main-accent-color: #5085a5; /*Blue*/
   --light-accent-color: #8fc1e3; /*Light blue*/
   --dark-accent-color: #31708e; /*Dark blue*/
-  --highlight-color: #687864; /*Moss green*/
+  --contrast-color: #687864; /*Moss green*/
+}
+
+#bg {
+  background-color: var(--main-bg-color);
+  height: 100px;
+  border-style: solid;
+}
+#txt {
+  background-color: var(--main-txt-color);
+  height: 100px;
+  color: white;
+}
+
+#accent {
+  background-color: var(--main-accent-color);
+  height: 100px;
+}
+
+#light {
+  background-color: var(--light-accent-color);
+  height: 100px;
+}
+
+#dark {
+  background-color: var(--dark-accent-color);
+  height: 100px;
+  color: white;
+}
+
+#contrast {
+  background-color: var(--contrast-color);
+  height: 100px;
+}
+
+.margintop {
+  margin-top: 30px;
 }
 
 body {
@@ -17,7 +53,7 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 100%;
 }
 
 .sidenav {
@@ -51,19 +87,40 @@ body {
   color: var(--dark-accent-color);
 }
 
+hr {
+  display: block;
+  margin: 0px 6px;
+  border-width: 8px;
+  border-color: var(--dark-accent-color);
+}
+
 .linkmeny {
   margin: 20px;
 }
 .footer {
   bottom: 0;
   position: fixed;
-  font-size: 12px;
-  padding: 6px 6px 6px 32px;
+  font-size: 14px;
+  padding: 6px 6px 32px 32px;
 }
 
 .main {
-  margin-left: 300px; /* To move out from meny */
-  margin-top: 30px;
+  /*  margin-left: 300px;  To move out from meny */
+  margin: 50px 50px 50px 300px;
+}
+
+.members_images {
+  padding: 6px 6px 6px 6px;
+}
+
+.member_img {
+  border-radius: 50%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.member {
+  text-align: center;
 }
 
 @media screen and (max-height: 450px) {
