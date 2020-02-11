@@ -1,0 +1,76 @@
+/* Use this to change theme colors */
+:root {
+  --main-bg-color: #f7f9fb; /*Light grey*/
+  --main-txt-color: #1a1a1a; /*Dark, dark grey */
+  --main-accent-color: #5085a5; /*Blue*/
+  --light-accent-color: #8fc1e3; /*Light blue*/
+  --dark-accent-color: #31708e; /*Dark blue*/
+  --highlight-color: #687864; /*Moss green*/
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--main-bg-color);
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--main-accent-color);
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--main-txt-color);
+  display: block;
+}
+.sidenav p {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  color: var(--main-txt-color);
+  display: block;
+}
+
+.sidenav a:hover {
+  color: var(--dark-accent-color);
+}
+
+.linkmeny {
+  margin: 20px;
+}
+.footer {
+  bottom: 0;
+  position: fixed;
+  font-size: 12px;
+  padding: 6px 6px 6px 32px;
+}
+
+.main {
+  margin-left: 300px; /* To move out from meny */
+  margin-top: 30px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
