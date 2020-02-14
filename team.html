@@ -1,44 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <title>Project Eir</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="script/sankey.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <script src="script\scripts.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <style>
-      .node rect {
-        cursor: move;
-        fill-opacity: .9;
-        shape-rendering: crispEdges;
-      }
-
-      .node text {
-        pointer-events: none;
-        text-shadow: 0 1px 0 #fff;
-      }
-
-      .link {
-        fill: none;
-        stroke: #000;
-        stroke-opacity: .2;
-      }
-
-      .link:hover {
-        stroke-opacity: .5;
-      }
-    </style>
-
   </head>
+  <!-- Nav bar -->
   <body>
-    <!-- Nav bar -->  
     <div class="sidenav">
       <img class="logo" src="images/logo.png" href="index.html" />
       <hr />
@@ -57,22 +36,35 @@
         Group Snorta
       </div>
     </div>
-
     <!-- Main site -->
     <div class="main">
-      <!-- Keep this main-tag or content will end up behind the nav bar -->
       <div class="container-fluid">
-        <div class="row margintop">
-          <div class="col-sm-2" id="bg">Background<br />#f7f9fb</div>
-          <div class="col-sm-2" id="txt">Text <br />#1a1a1a</div>
-          <div class="col-sm-2" id="accent">Accent<br />#5085a5</div>
-          <div class="col-sm-2" id="light">Light accent<br />#8fc1e3</div>
-          <div class="col-sm-2" id="dark">Dark accent<br />#31708e</div>
-          <div class="col-sm-2" id="contrast">Contrast<br />#687864</div>
+        <div class="row members_images">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-2 member">
+            <img class="member_img" src="images/member.jpg" /> Carlo Barone
+          </div>
+          <div class="col-sm-2 member">
+            <img class="member_img" src="images/member.jpg" />Emelia Johansson
+          </div>
+          <div class="col-sm-2 member">
+            <img class="member_img" src="images/member.jpg" />Aidan Kidder-Wolff
+          </div>
+          <div class="col-sm-2 member">
+            <img class="member_img" src="images/member.jpg" />Federico Landorno
+          </div>
+          <div class="col-sm-2 member">
+            <img class="member_img" src="images/member.jpg" />Gabriel Ringmar
+          </div>
+          <div class="col-sm-1"></div>
         </div>
+
         <div class="row margintop">
           <div class="col-12">
-            <h2>TEXT</h2>
+            <!--
+              Keep this main-tag or content will end up behind the nav bar
+            -->
+            <h2>The team</h2>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
@@ -85,8 +77,7 @@
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
             </p>
-            
-            <h3>Why do we use it?</h3>
+            <h3>Why are we the best?</h3>
             <p>
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
@@ -99,14 +90,9 @@
               have evolved over the years, sometimes by accident, sometimes on
               purpose (injected humour and the like).
             </p>
-
-            <h3>Data Visualization</h3>
-            <script src="script/graph.js"></script>
-
           </div>
         </div>
       </div>
     </div>
-
   </body>
 </html>
