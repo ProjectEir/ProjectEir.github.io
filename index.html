@@ -1,44 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <title>Project Eir</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://d3js.org/d3.v4.min.js">
+      >
+    </script>
     <script src="script/sankey.js"></script>
+    <script src="script/graph.js"></script>
+    <script>
+      import define from "./script/index.js";
+      import { Runtime, Library, Inspector } from "./script/runtime.js";
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <style>
-      .node rect {
-        cursor: move;
-        fill-opacity: .9;
-        shape-rendering: crispEdges;
-      }
-
-      .node text {
-        pointer-events: none;
-        text-shadow: 0 1px 0 #fff;
-      }
-
-      .link {
-        fill: none;
-        stroke: #000;
-        stroke-opacity: .2;
-      }
-
-      .link:hover {
-        stroke-opacity: .5;
-      }
-    </style>
-
   </head>
   <body>
-    <!-- Nav bar -->  
+    <!-- Nav bar -->
     <div class="sidenav">
       <img class="logo" src="images/logo.png" href="index.html" />
       <hr />
@@ -46,6 +33,8 @@
         <a href="index.html">Home</a> <a href="index.html">Filters</a>
         <p>Put all the filter selections here</p>
         <a href="about.html">About</a> <a href="team.html">The Team</a>
+        <a href="team.html">The Team</a> <a href="index2.html">Index2</a>
+        <a href="resources.html">Resources</a>
       </div>
       <div class="footer">
         Copyright &copy;
@@ -72,41 +61,20 @@
         </div>
         <div class="row margintop">
           <div class="col-12">
-            <h2>TEXT</h2>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
-            
-            <h3>Why do we use it?</h3>
-            <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).
-            </p>
+            <h2>Visualization Code Below</h2>
 
-            <h3>Data Visualization</h3>
+            <!-- Added visualization code below from index2.html -->
+            <script type="module">
+              const runtime = new Runtime();
+              const main = runtime.module(
+                define,
+                Inspector.into(document.body)
+              );
+            </script>
             <script src="script/graph.js"></script>
-
           </div>
         </div>
       </div>
     </div>
-
   </body>
 </html>
