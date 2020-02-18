@@ -23,3 +23,28 @@
     .side-nav {
         top: 64px;
     }
+
+.emblem{
+  height: 80px !important;
+  margin-top: -14px !important;
+}
+
+.promo-caption{
+  font-size: 1.7rem;
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.promo i{
+color: #ee6e73;
+}
+
+a:hover{
+  color: #ee6e73;
+}
+
+.header{
+  color: #ee6e73;
+  font-weight: 300;
+}

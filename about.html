@@ -1,69 +1,110 @@
 <!DOCTYPE html>
+
 <head>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="script/sankey.js"></script>
-    <script src="script/graph.js"></script>
-    <title>Project Eir</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="script/sankey.js"></script>
+  <script src="script/graph.js"></script>
+  <title>Project Eir</title>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper teal">
-            <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
-                <li><a href="index.html">Home</a></li>
-            </ul>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="about.html">Project</a></li>
-                <li><a href="team.html">Team</a></li>
-            </ul>
-        </div>
-    </nav>
+  <nav>
+    <div class="nav-wrapper teal">
+      <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
+        <li> <img class="emblem" src="images/emblem_white.png" /> </li>
+        <li><a href="index.html">Home</a></li>
+      </ul>
 
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="about.html">About the Project</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col s3"></div>
+      <div class="col s9">
+        <h2 class="header">What is Project Eir?</h2>
+      </div>
+    </div>
+    <div class="row promo">
+
+      <div class="col s4 center-align"><i class="material-icons large">public</i>
+        <br />
+        <p class="promo-caption">Global</p>
+        <p class="light center">Explore 330,531 research studies in all 50 states and in 209 countries.</p>
+      </div>
+
+      <div class="col s4 center-align"><i class="material-icons large">cloud</i>
+        <br />
+        <p class="promo-caption">Data</p>
+        <p class="light center">The database ClinicalTrials.gov is a database of privately and publicly funded clinical studies conducted around the world.</p>
+      </div>
+
+      <div class="col s4">
+        <div class="center promo promo-example">
+          <i class="material-icons large">flash_on</i>
+          <p class="promo-caption">Fast & Easy</p>
+          <p class="light center">Project Eir can be adapted to your needs and we are dedicated to give you what you the toold to find exactly what you are looking for</p>
+        </div>
+      </div>
     </div>
 
+    <div class="divider"></div>
 
-    <script>
-        $('.button-collapse').sideNav({
-            menuWidth: 200, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: false, // Choose whether you can drag to open on touch screens,
-            onOpen: function (el) { /* Do Stuff*/ },
-            onClose: function (el) { /* Do Stuff*/ },
-        });
+    <h2 class="header">Background</h2>
 
-        var isHidden = false;
-        $("#show-sidebar").click(function () {
-            if (isHidden) {
-                //show sidebar
-                $('#slide-out').addClass('fixed');
-                //decrease graph size
-                //$("svg").width($("svg").width() - 200);
-            } else {
-                //hide sidebar
-                $('#slide-out').removeClass('fixed');
-                $('.button-collapse').sideNav('hide');
-                //enlarge graph
-                //$("svg").width($("svg").width() + 200);
-            }
-            isHidden = !isHidden;
-        });
+    <p class="flow-text">The evolution of clinical research traverses a long and fascinating journey. From the first recorded trial of legumes in biblical times to the first randomized controlled of trial of streptomycin in 1946, the history of clinical trial covers a
+      wide variety of challenges - scientific, ethical and regulatory. </p>
 
 
-        jQuery(document).ready(function () {
-            jQuery('.sidenav-toggle').sideNav();
-        });
 
-    </script>
+  </div>
+  <script>
+    $('.button-collapse').sideNav({
+      menuWidth: 200, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: false, // Choose whether you can drag to open on touch screens,
+      onOpen: function(el) {
+        /* Do Stuff*/
+      },
+      onClose: function(el) {
+        /* Do Stuff*/
+      },
+    });
+
+    var isHidden = false;
+    $("#show-sidebar").click(function() {
+      if (isHidden) {
+        //show sidebar
+        $('#slide-out').addClass('fixed');
+        //decrease graph size
+        //$("svg").width($("svg").width() - 200);
+      } else {
+        //hide sidebar
+        $('#slide-out').removeClass('fixed');
+        $('.button-collapse').sideNav('hide');
+        //enlarge graph
+        //$("svg").width($("svg").width() + 200);
+      }
+      isHidden = !isHidden;
+    });
+
+
+    jQuery(document).ready(function() {
+      jQuery('.sidenav-toggle').sideNav();
+    });
+  </script>
 </body>
 
 </html>
