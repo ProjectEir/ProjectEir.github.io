@@ -13,7 +13,7 @@ var partition = d3.layout.partition()
 .children(function(d) { return isNaN(d.value) ? d3.entries(d.value) : null; })
 .value(function(d) { return d.value; });
 
-d3.json("data/readme.json", function(json) {
+d3.json("data/data.json", function(json) {
 var rect = vis.selectAll("rect")
   .data(partition(d3.entries(json)[0]))
 .enter().append("svg:rect")
