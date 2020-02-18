@@ -22,7 +22,7 @@ var svg = d3.select("body").append("svg")
 // Set the sankey diagram properties
 var sankey = d3.sankey()
     .nodeWidth(36)
-    .nodePadding(10) //padding between nodes
+    .nodePadding(15) //padding between nodes
     .size([width, height]);
 
 var path = sankey.link();
