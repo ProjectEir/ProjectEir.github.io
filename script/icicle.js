@@ -97,8 +97,15 @@ function clicked(d) {
         .duration(750)
         .attr("x", function (d) { return x(d.x0); })
         .attr("y", function (d) { return y(d.y0); })
-        .attr("width", function (d) { return x(d.x1 - d.x0); })
-        .attr("height", function (d) { return y(d.y1 - d.y0); });
+        attr("width", function (d) { return x(d.x0)/*x(d.x1 - d.x0)*/; })
+        .attr("height", function (d) {
+            var h = y(d.y1 - d.y0);
+            if (h >= 18) {
+                return y(d.y1 - d.y0);
+            } else {
+                return 18;
+            }
+        });
 
     // code to update the BreadcrumbTrail();
     var percentage = (100 * d.value / totalSize).toPrecision(3);
