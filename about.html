@@ -1,71 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Project Eir</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <script src="script\scripts.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <!-- Nav bar -->
-  <body>
-    <div class="sidenav">
-      <img class="logo" src="images/logo.png" href="index.html" />
-      <hr />
-      <div class="linkmeny">
-        <a href="index.html">Home</a> <a href="index.html">Filters</a>
-        <p>Put all the filter selections here</p>
-        <a href="about.html">About</a> <a href="team.html">The Team</a>
-        <a href="index2.html">Index2</a> <a href="resources.html">Resources</a>
-      </div>
-      <div class="footer">
-        Copyright &copy;
-        <script>
-          document.write(new Date().getFullYear());
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
         </script>
-        <br />All rights reserved <br />
-        This project is made by: <br />
-        Group Snorta
-      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="script/sankey.js"></script>
+    <script src="script/graph.js"></script>
+    <title>Project Eir</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper teal">
+            <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="about.html">Project</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
+        </div>
+    </nav>
+
     </div>
-    <!-- Main site -->
-    <div class="main">
-      <div class="container-fluid">
-        <!-- Keep this main-tag or content will end up behind the nav bar -->
-        <h2>About</h2>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
-        <h3>Why do we do this?</h3>
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. Many desktop publishing packages and web
-          page editors now use Lorem Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their
-          infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose (injected humour and the like).
-        </p>
-      </div>
-    </div>
-  </body>
+
+
+    <script>
+        $('.button-collapse').sideNav({
+            menuWidth: 200, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: false, // Choose whether you can drag to open on touch screens,
+            onOpen: function (el) { /* Do Stuff*/ },
+            onClose: function (el) { /* Do Stuff*/ },
+        });
+
+        var isHidden = false;
+        $("#show-sidebar").click(function () {
+            if (isHidden) {
+                //show sidebar
+                $('#slide-out').addClass('fixed');
+                //decrease graph size
+                //$("svg").width($("svg").width() - 200);
+            } else {
+                //hide sidebar
+                $('#slide-out').removeClass('fixed');
+                $('.button-collapse').sideNav('hide');
+                //enlarge graph
+                //$("svg").width($("svg").width() + 200);
+            }
+            isHidden = !isHidden;
+        });
+
+
+        jQuery(document).ready(function () {
+            jQuery('.sidenav-toggle').sideNav();
+        });
+
+    </script>
+</body>
+
 </html>
