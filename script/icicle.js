@@ -1,7 +1,7 @@
 //https://github.com/Sushanthece/D3-Zoomable-icicle
 //https://gist.github.com/andrea2910/19a5a788a575f41801e9ee72058806b6
-var width = window.innerWidth - 300,
-    height = 500;
+var width = window.innerWidth - 200,
+    height = window.innerHeight - 64;
 
 var x = d3.scaleLinear()
     .range([0, width]);
@@ -131,7 +131,7 @@ function initializeBreadcrumbTrail() {
 
     // Make the breadcrumb trail visible, if it's hidden.
     d3.select("#trail")
-        .style("visibility", "");
+        .style("visibility", "visible");
 }
 
 // Generate a string that describes the points of a breadcrumb polygon.
