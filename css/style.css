@@ -23,3 +23,11 @@
     .side-nav {
         top: 64px;
     }
+    
+#main_content {
+    margin-left: 200px;
+}
+
+#slide-out {
+    width: 200px;
+}

@@ -1,5 +1,5 @@
 //https://github.com/Sushanthece/D3-Zoomable-icicle
-var w = 1200,
+var w = window.innerWidth-200,
 h = 420,
 x = d3.scale.linear().range([0, w]),
 y = d3.scale.linear().range([0, h]),

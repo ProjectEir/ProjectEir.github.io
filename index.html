@@ -15,12 +15,10 @@
     <title>Project Eir</title>
 </head>
 
+
 <body>
     <nav>
         <div class="nav-wrapper teal">
-            <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
-                <li id="show-sidebar"><a href="#"><i class="small material-icons">filter_list</i></a></li>
-            </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="about.html">Project</a></li>
                 <li><a href="team.html">Team</a></li>
@@ -49,40 +47,6 @@
         </section>
     </div>
 
-
-    <script>
-        $('.button-collapse').sideNav({
-            menuWidth: 200, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: false, // Choose whether you can drag to open on touch screens,
-            onOpen: function (el) { /* Do Stuff*/ },
-            onClose: function (el) { /* Do Stuff*/ },
-        });
-
-        var isHidden = false;
-        $("#show-sidebar").click(function () {
-            if (isHidden) {
-                //show sidebar
-                $('#slide-out').addClass('fixed');
-                //decrease graph size
-                //$("svg").width($("svg").width() - 200);
-            } else {
-                //hide sidebar
-                $('#slide-out').removeClass('fixed');
-                $('.button-collapse').sideNav('hide');
-                //enlarge graph
-                //$("svg").width($("svg").width() + 200);
-            }
-            isHidden = !isHidden;
-        });
-
-
-        jQuery(document).ready(function () {
-            jQuery('.sidenav-toggle').sideNav();
-        });
-
-    </script>
 </body>
 
 </html>
