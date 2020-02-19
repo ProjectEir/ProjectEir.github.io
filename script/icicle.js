@@ -1,7 +1,7 @@
 //https://github.com/Sushanthece/D3-Zoomable-icicle
 //https://gist.github.com/andrea2910/19a5a788a575f41801e9ee72058806b6
 var width = window.innerWidth - 200,
-    height = window.innerHeight - 64;
+    height = window.innerHeight - 64-85;
 
 var x = d3.scaleLinear()
     .range([0, width]);
@@ -22,14 +22,14 @@ var partition = d3.partition()
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 var b = {
-    w: 150, h: 80, s: 3, t: 10
+    w: 150, h: 50, s: 3, t: 10
 };
 
 var rect = vis.selectAll("rect");
 var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
 
-d3.json("data/data.json", function (error, root) {
+d3.json("data/dataX.json", function (error, root) {
     if (error) throw error;
 
     root = d3.hierarchy(d3.entries(root)[0], function (d) {
@@ -75,7 +75,9 @@ d3.json("data/data.json", function (error, root) {
         .attr("height", function (d) { return d.y1 - d.y0; })
         .style("cursor", "pointer")
         .text(function (d) { return d.data.key })
+        //.call(wrap, "width")
         .on("click", clicked);
+        
 
     //get total size from rect
     totalSize = rect.node().__data__.value;
@@ -97,7 +99,7 @@ function clicked(d) {
         .duration(750)
         .attr("x", function (d) { return x(d.x0); })
         .attr("y", function (d) { return y(d.y0); })
-        attr("width", function (d) { return x(d.x0)/*x(d.x1 - d.x0)*/; })
+        .attr("width", function (d) { return x(d.x0)/*x(d.x1 - d.x0)*/; })
         .attr("height", function (d) {
             var h = y(d.y1 - d.y0);
             if (h >= 18) {
@@ -174,11 +176,12 @@ function updateBreadcrumbs(nodeArray, percentageString) {
         .style("fill", function (d) { return color((d.children ? d : d.parent).data.key); });
 
     entering.append("svg:text")
-        .attr("x", (b.w + b.t) / 2)
+        .attr("x", b.t*2)
         .attr("y", b.h / 2)
         .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
-        .text(function (d) { return d.data.key; });
+        .attr("text-anchor", "start")
+        .text(function (d) { return d.data.key; })
+        .call(wrap, (b.w-b.t));
 
     // Merge enter and update selections; set position for all nodes.
     entering.merge(trail).attr("transform", function (d, i) {
@@ -192,5 +195,30 @@ function updateBreadcrumbs(nodeArray, percentageString) {
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
         .text(percentageString);
+
+        function wrap(text, width) {
+            text.each(function() {
+              var text = d3.select(this),
+                  words = text.text().split(/\s+/).reverse(),
+                  word,
+                  line = [],
+                  lineNumber = 0,
+                  lineHeight = 1.1, // ems
+                  y = text.attr("y"),
+                  dy = parseFloat(text.attr("dy")),
+                  tspan = text.text(null).append("tspan").attr("x", b.t*1.2).attr("y", b.t*1.5).attr("dy", dy + "em");
+              while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                  line.pop();
+                  tspan.text(line.join(" "));
+                  line = [word];
+                  tspan = text.append("tspan").attr("x", b.t*1.2).attr("y", b.t*2).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                }
+              }
+            });
+          }
+
 
 }
