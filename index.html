@@ -9,18 +9,14 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
         </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <!--script src="https://d3js.org/d3.v4.min.js"></script-->
-    <script type="text/javascript" src="script/d3.v2.min.js"></script>
-    <script src="script/sankey.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!--script type="text/javascript" src="script/d3.v2.min.js"></script-->
     <title>Project Eir</title>
 </head>
 
 <body>
     <nav>
         <div class="nav-wrapper teal">
-            <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
-                <li id="show-sidebar"><a href="#"><i class="small material-icons">filter_list</i></a></li>
-            </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="about.html">Project</a></li>
                 <li><a href="team.html">Team</a></li>
@@ -38,51 +34,16 @@
     </ul>
 
     </div>
-
+    <div id="breadcrumb" style="margin-left: 200px;"></div>
     <div>
         <section id="main_content" class="inner" >   
           <div>
-              <div id="chart"></div>
+              <div id="chart" style="margin-left: 200px;"></div>
                <script type="text/javascript" src="script/icicle.js"></script>
             </p>
           </div>
         </section>
     </div>
-
-
-    <script>
-        $('.button-collapse').sideNav({
-            menuWidth: 200, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: false, // Choose whether you can drag to open on touch screens,
-            onOpen: function (el) { /* Do Stuff*/ },
-            onClose: function (el) { /* Do Stuff*/ },
-        });
-
-        var isHidden = false;
-        $("#show-sidebar").click(function () {
-            if (isHidden) {
-                //show sidebar
-                $('#slide-out').addClass('fixed');
-                //decrease graph size
-                //$("svg").width($("svg").width() - 200);
-            } else {
-                //hide sidebar
-                $('#slide-out').removeClass('fixed');
-                $('.button-collapse').sideNav('hide');
-                //enlarge graph
-                //$("svg").width($("svg").width() + 200);
-            }
-            isHidden = !isHidden;
-        });
-
-
-        jQuery(document).ready(function () {
-            jQuery('.sidenav-toggle').sideNav();
-        });
-
-    </script>
 </body>
 
 </html>
