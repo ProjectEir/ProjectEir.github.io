@@ -11,6 +11,7 @@ var y = d3.scaleLinear()
 
 var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
+// Canvas
 var vis = d3.select('#chart').append("svg:svg")
     .attr("width", width)
     .attr("height", height)
@@ -28,6 +29,7 @@ var b = {
 var rect = vis.selectAll("rect");
 var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
+
 
 d3.json("data/dataX.json", function (error, root) {
     if (error) throw error;
@@ -55,22 +57,53 @@ d3.json("data/dataX.json", function (error, root) {
     //sequenceArray.shift(); // remove root node from the array
     updateBreadcrumbs(sequenceArray, percentageString);
 
+
+    /* gives IDs to each rectangle and text box
+    *  Rectangles: root is rect0, first child is rect1, second child is rect2, . . .
+    *  Text: root is text6742, first child is text6743, ...
+    */
+    var i = -1;
+    function rectCounter() {
+        i++;
+        return i;
+    }
+    // This will need to be changed when we get data directly from the database
+    function textCounter() {
+        return rectCounter() - 6742;
+    }
+
     rect = rect
         .data(root.descendants())
         .enter().append("rect")
         .attr("x", function (d) { return d.x0; })
-        .attr("y", function (d) { return d.y0; })
+        .attr("y", function (d) {
+            // Ratios to make the root small
+            if (d.y0 == height / 3) { return d.y1 - d.y0 - (3 * height) / 10; } // First row needed to move up against the root
+            if (d.y0 == 2 * height / 3) { return d.y1 - d.y0 + (height / 6 + height / 60) }; //Second row needed to move up against the first row
+            return d.y0;
+        })
         .attr("width", function (d) { return d.x1 - d.x0; })
-        .attr("height", function (d) { return d.y1 - d.y0; })
+        .attr("height", function (d) {
+            // Ratios to fix the loss
+            if (d.y0 == 0) { return height / 30 }
+            return (height - (height / 30)); 
+        })
         .attr("fill", function (d) { return color((d.children ? d : d.parent).data.key); })
         .attr("stroke", "white")
+        .attr("id", function (d) {return "rect" + rectCounter()})
         .on("click", clicked);
 
     fo = fo
         .data(root.descendants())
         .enter().append("foreignObject")
+        .attr("id", function (d) { return "text" + textCounter()})
         .attr("x", function (d) { return d.x0; })
-        .attr("y", function (d) { return d.y0; })
+        .attr("y", function (d) {
+            // Ratios to make the root small
+            if (d.y0 == height / 3) { return d.y1 - d.y0 - (3 * height) / 10; } // First row needed to move up against the root
+            if (d.y0 == 2 * height / 3) { return d.y1 - d.y0 + (height / 6 + height / 60) }; //Second row needed to move up against the first row
+            return d.y0;
+        })
         .attr("width", function (d) { return d.x1 - d.x0; })
         .attr("height", function (d) { return d.y1 - d.y0; })
         .style("cursor", "pointer")
@@ -93,13 +126,15 @@ function clicked(d) {
         .attr("x", function (d) { return x(d.x0); })
         .attr("y", function (d) { return y(d.y0); })
         .attr("width", function (d) { return x(d.x1) - x(d.x0); })
-        .attr("height", function (d) { return y(d.y1) - y(d.y0); });
+        .attr("height", function (d) {
+            return y(d.y1) - y(d.y0);
+        });
 
     fo.transition()
         .duration(750)
         .attr("x", function (d) { return x(d.x0); })
         .attr("y", function (d) { return y(d.y0); })
-        .attr("width", function (d) { return x(d.x0)/*x(d.x1 - d.x0)*/; })
+        .attr("width", function (d) { return Math.max(x(d.x0), 0)/*x(d.x1 - d.x0)*/; })
         .attr("height", function (d) {
             var h = y(d.y1 - d.y0);
             if (h >= 18) {
