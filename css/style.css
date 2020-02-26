@@ -1,6 +1,6 @@
 .node rect {
   cursor: move;
-  fill-opacity: .9;
+  fill-opacity: 0.9;
   shape-rendering: crispEdges;
 }
 
@@ -14,11 +14,11 @@
 .link {
   fill: none;
   stroke: #000;
-  stroke-opacity: .2;
+  stroke-opacity: 0.2;
 }
 
 .link:hover {
-  stroke-opacity: .5;
+  stroke-opacity: 0.5;
 }
 
 .side-nav {
@@ -35,11 +35,11 @@
 .link {
   fill: none;
   stroke: #000;
-  stroke-opacity: .2;
+  stroke-opacity: 0.2;
 }
 
 .link:hover {
-  stroke-opacity: .5;
+  stroke-opacity: 0.5;
 }
 
 .side-nav {
@@ -92,7 +92,6 @@ blockquote {
   border-left: 5px solid #004d40 !important;
 }
 
-
 .col-3-card {
   width: 29%;
   height: 200px;
@@ -101,6 +100,11 @@ blockquote {
   right: auto;
 }
 
-#slide-out{
+#slide-out {
   width: 200px;
+}
+
+svg {
+  max-width: 80%;
+  margin: 10%;
 }
