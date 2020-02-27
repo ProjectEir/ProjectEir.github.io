@@ -104,7 +104,13 @@ blockquote {
   width: 200px;
 }
 
-svg {
-  margin-left: 3%;
-  margin-right: 3%;
+#breadcrumb {
+margin-bottom: -7px;
+}
+
+#chart svg {
+  max-width: calc(96% - 200px);
+  margin-top: 1%;
+  margin-left: calc(200px + 1%);
+  margin-right: 1%;
 }
