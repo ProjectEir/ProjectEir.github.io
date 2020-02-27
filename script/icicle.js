@@ -1,8 +1,6 @@
 //https://github.com/Sushanthece/D3-Zoomable-icicle
 //https://gist.github.com/andrea2910/19a5a788a575f41801e9ee72058806b6
 
-console.log("Hello");
-
 var width = window.innerWidth - 200,
   height = window.innerHeight - 64 - 85;
 

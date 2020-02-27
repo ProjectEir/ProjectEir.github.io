@@ -105,6 +105,6 @@ blockquote {
 }
 
 svg {
-  max-width: 80%;
-  margin: 10%;
+  margin-left: 3%;
+  margin-right: 3%;
 }
