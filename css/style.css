@@ -77,6 +77,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+foreignObject {
+  font-size: 10px;
+}
+
 p {
   margin-block-start: 1em;
   margin-block-end: 1em;
@@ -105,7 +109,7 @@ blockquote {
 }
 
 #breadcrumb {
-margin-bottom: -7px;
+  margin-bottom: -7px;
 }
 
 #chart svg {

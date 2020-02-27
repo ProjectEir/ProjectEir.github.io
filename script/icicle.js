@@ -35,8 +35,7 @@ var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
 
 d3.json("data/dataX.json", function(error, root) {
-  if (error) throw error
-
+  if (error) throw error;
   root = d3
     .hierarchy(d3.entries(root)[0], function(d) {
       return d3.entries(d.value);
@@ -60,8 +59,6 @@ d3.json("data/dataX.json", function(error, root) {
 
   //sequenceArray.shift(); // remove root node from the array
   updateBreadcrumbs(sequenceArray, percentageString);
-
-console.log(root);
 
   rect = rect
     .data(root.descendants())
@@ -88,7 +85,7 @@ console.log(root);
       return color((d.children ? d : d.parent).data.key);
     })
     .attr("stroke", "white")
-    .on("click", clicked);
+    .on("click", switchData);
 
   fo = fo
     .data(root.descendants())
@@ -111,7 +108,11 @@ console.log(root);
     .attr("height", function(d) {
       return d.y1 - d.y0;
     })
+    .attr("fill", function(d) {
+      return color((d.children ? d : d.parent).data.key);
+    })
     .style("cursor", "pointer")
+    .attr("text-size", 10)
     .text(function(d) {
       return d.data.key;
     })
@@ -122,18 +123,28 @@ console.log(root);
   totalSize = rect.node().__data__.value;
 });
 
-
 function switchData(d) {
-  d3.select("#chart").select("svg").remove(); //Remove existing viz
+  var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
 
-  //Create basic attr again (neccessary?)
-  var width = window.innerWidth - 200,
+  d3.select("#chart")
+    .select("svg")
+    .remove(); //Remove existing viz the limit the amount of data as one
+
+  //Create basic attr again
+  //works without this part
+  /* var width = window.innerWidth - 200,
     height = window.innerHeight - 64 - 85;
 
   var x = d3.scaleLinear().range([0, width]);
   var y = d3.scaleLinear().range([0, height]);
-  var color = d3.scaleOrdinal(d3.schemeCategory20c);
+  var color = d3.scaleOrdinal(d3.schemeCategory20c);*/
 
+  // TODO: rescale the icicle to fill the page
+  //Define new domains (Fill the page again)
+  x.domain([d.x0, d.x1]);
+  y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
+
+  //New chart area
   var vis = d3
     .select("#chart")
     .append("svg:svg")
@@ -152,52 +163,47 @@ function switchData(d) {
 
   //new rectangles
   rect = rect
-  .data(d.descendants())
-  .enter()
+    .data(d.descendants())
+    .enter()
     .append("rect")
     .attr("x", function(d) {
-      return d.x0;
+      return x(d.x0);
     })
     .attr("y", function(d) {
-      return d.y0;
+      return y(d.y0);
     })
     .attr("width", function(d) {
-      if (d.x1 - d.x0 >= 0) {
-        return d.x1 - d.x0;
-      } else {
-        0;
-      }
+      return x(d.x1) - x(d.x0);
     })
     .attr("height", function(d) {
-      return d.y1 - d.y0;
+      return y(d.y1) - y(d.y0);
     })
-    .attr("fill", function(d) {
-      return color((d.children ? d : d.parent).data.key);
-    })
+    .attr("fill", basecolor) //same as the one you clicked on
     .attr("stroke", "white")
-    .on("click", clicked);
-
+    .style("cursor", "pointer")
+    .on("click", switchData);
 
   //new text
   fo = fo
-  .data(d.descendants())
-  .enter()
+    .data(d.descendants())
+    .enter()
     .append("foreignObject")
     .attr("x", function(d) {
-      return d.x0;
+      return x(d.x0);
     })
     .attr("y", function(d) {
-      return d.y0;
+      return y(d.y0);
     })
     .attr("width", function(d) {
-      if (d.x1 - d.x0 >= 0) {
-        return d.x1 - d.x0;
-      } else {
-        0;
-      }
+      return x(d.x1) - x(d.x0);
     })
     .attr("height", function(d) {
-      return d.y1 - d.y0;
+      var h = y(d.y1 - d.y0);
+      if (h >= 18) {
+        return y(d.y1 - d.y0);
+      } else {
+        return 18;
+      }
     })
     .style("cursor", "pointer")
     .text(function(d) {
@@ -205,7 +211,6 @@ function switchData(d) {
     })
     //.call(wrap, "width")
     .on("click", switchData);
-
 
   //Breadcrumb (from clicked function)//
   // code to update the BreadcrumbTrail();
@@ -222,7 +227,6 @@ function switchData(d) {
   var sequenceArray = d.ancestors().reverse();
   //sequenceArray.shift(); // remove root node from the array
   updateBreadcrumbs(sequenceArray, percentageString);
-
 }
 
 function clicked(d) {
