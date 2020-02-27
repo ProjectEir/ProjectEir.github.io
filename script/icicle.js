@@ -35,7 +35,7 @@ var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
 
 d3.json("data/dataX.json", function(error, root) {
-  if (error) throw error;
+  if (error) throw error
 
   root = d3
     .hierarchy(d3.entries(root)[0], function(d) {
@@ -61,6 +61,8 @@ d3.json("data/dataX.json", function(error, root) {
   //sequenceArray.shift(); // remove root node from the array
   updateBreadcrumbs(sequenceArray, percentageString);
 
+console.log(root);
+
   rect = rect
     .data(root.descendants())
     .enter()
@@ -73,7 +75,6 @@ d3.json("data/dataX.json", function(error, root) {
       return d.y0;
     })
     .attr("width", function(d) {
-      console.log("nr 1", d.x1 - d.x0);
       if (d.x1 - d.x0 >= 0) {
         return d.x1 - d.x0;
       } else {
@@ -101,7 +102,6 @@ d3.json("data/dataX.json", function(error, root) {
       return d.y0;
     })
     .attr("width", function(d) {
-      console.log("nr 2", d.x1 - d.x0);
       if (d.x1 - d.x0 >= 0) {
         return d.x1 - d.x0;
       } else {
@@ -116,11 +116,114 @@ d3.json("data/dataX.json", function(error, root) {
       return d.data.key;
     })
     //.call(wrap, "width")
-    .on("click", clicked);
+    .on("click", switchData);
 
   //get total size from rect
   totalSize = rect.node().__data__.value;
 });
+
+
+function switchData(d) {
+  d3.select("#chart").select("svg").remove(); //Remove existing viz
+
+  //Create basic attr again (neccessary?)
+  var width = window.innerWidth - 200,
+    height = window.innerHeight - 64 - 85;
+
+  var x = d3.scaleLinear().range([0, width]);
+  var y = d3.scaleLinear().range([0, height]);
+  var color = d3.scaleOrdinal(d3.schemeCategory20c);
+
+  var vis = d3
+    .select("#chart")
+    .append("svg:svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  var partition = d3
+    .partition()
+    .size([width, height])
+    .padding(0)
+    .round(true);
+
+  var rect = vis.selectAll("rect");
+  var fo = vis.selectAll("foreignObject");
+  var totalSize = 0;
+
+  //new rectangles
+  rect = rect
+  .data(d.descendants())
+  .enter()
+    .append("rect")
+    .attr("x", function(d) {
+      return d.x0;
+    })
+    .attr("y", function(d) {
+      return d.y0;
+    })
+    .attr("width", function(d) {
+      if (d.x1 - d.x0 >= 0) {
+        return d.x1 - d.x0;
+      } else {
+        0;
+      }
+    })
+    .attr("height", function(d) {
+      return d.y1 - d.y0;
+    })
+    .attr("fill", function(d) {
+      return color((d.children ? d : d.parent).data.key);
+    })
+    .attr("stroke", "white")
+    .on("click", clicked);
+
+
+  //new text
+  fo = fo
+  .data(d.descendants())
+  .enter()
+    .append("foreignObject")
+    .attr("x", function(d) {
+      return d.x0;
+    })
+    .attr("y", function(d) {
+      return d.y0;
+    })
+    .attr("width", function(d) {
+      if (d.x1 - d.x0 >= 0) {
+        return d.x1 - d.x0;
+      } else {
+        0;
+      }
+    })
+    .attr("height", function(d) {
+      return d.y1 - d.y0;
+    })
+    .style("cursor", "pointer")
+    .text(function(d) {
+      return d.data.key;
+    })
+    //.call(wrap, "width")
+    .on("click", switchData);
+
+
+  //Breadcrumb (from clicked function)//
+  // code to update the BreadcrumbTrail();
+  var percentage = ((100 * d.value) / totalSize).toPrecision(3);
+  var percentageString = percentage + "%";
+  if (percentage < 0.1) {
+    percentageString = "< 0.1%";
+  }
+
+  d3.select("#percentage").text(percentageString + d.value);
+
+  d3.select("#explanation").style("visibility", "");
+
+  var sequenceArray = d.ancestors().reverse();
+  //sequenceArray.shift(); // remove root node from the array
+  updateBreadcrumbs(sequenceArray, percentageString);
+
+}
 
 function clicked(d) {
   x.domain([d.x0, d.x1]);
@@ -136,7 +239,6 @@ function clicked(d) {
       return y(d.y0);
     })
     .attr("width", function(d) {
-      console.log("nr 3", x(d.x1) - x(d.x0));
       return x(d.x1) - x(d.x0);
     })
     .attr("height", function(d) {
@@ -152,7 +254,6 @@ function clicked(d) {
       return y(d.y0);
     })
     .attr("width", function(d) {
-      console.log("nr 3", x(d.x1) - x(d.x0));
       return x(d.x1) - x(d.x0);
     })
     .attr("height", function(d) {
