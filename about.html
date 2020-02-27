@@ -1,196 +1,69 @@
 <!DOCTYPE html>
-
 <head>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="script/sankey.js"></script>
-  <script src="script/graph.js"></script>
-  <title>Project Eir</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="script/sankey.js"></script>
+    <script src="script/graph.js"></script>
+    <title>Project Eir</title>
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper teal">
-      <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
-        <li> <img class="emblem" src="images/emblem_white.png" /> </li>
-        <li><a href="index.html">Home</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="about.html">About the Project</a></li>
-        <li><a href="team.html">Team</a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-
-    <h2 class="header center-align">What is Project Eir?</h2>
-
-    <div class="row promo">
-
-      <div class="col s4 center-align"><i class="material-icons large">public</i>
-        <br />
-        <p class="promo-caption">Global</p>
-        <p class="light center">Explore 330,531 research studies in all 50 states and in 209 countries.</p>
-      </div>
-
-      <div class="col s4 center-align"><i class="material-icons large">cloud</i>
-        <br />
-        <p class="promo-caption">The data</p>
-        <p class="light center">The database ClinicalTrials.gov is a database of privately and publicly funded clinical studies conducted around the world.</p>
-      </div>
-
-      <div class="col s4">
-        <div class="center promo promo-example">
-          <i class="material-icons large">flash_on</i>
-          <p class="promo-caption">Fast & Easy</p>
-          <p class="light center">Project Eir can be adapted to your needs and we are dedicated to give you what you the toold to find exactly what you are looking for</p>
+    <nav>
+        <div class="nav-wrapper teal">
+            <ul id="nav-filter" class="left hide-on-med-and-down center-align" style="width: 200px;">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="about.html">Project</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
         </div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="project-content">
-      <h3 class="header center-align">Background</h3>
-
-      <p>Medicine has gone through a millenary history. In the Ancient Greece this noble science had its very birth, with Hippocrates, whose eponymous oath is still the starting point for every initiate doctor; everything was based on divine
-        revelations,
-        taken from god Asclepius (rom. Aesculapius), mixed with first anatomical intuitions, which had no scientific explanation at the time. All of this was followed by several centuries of medieval heresies, where medicine research was often
-        confused
-        and overlaid with religion. </p>
-      <p> At the end of 14th century, the rise of the Renaissance gave new pulse to the more scientific approach, which lead to first actually anatomical discoveries. The lack of quick info diffusion devices prevented the spread
-        of knowledge until the early 16th century, when Johannes Gutenberg invented the mobile printing system, making books, thus culture, more accessible. After this, a huge step forward is necessary, towards the invention of the Internet, which
-        made
-        available a limitless amount of knowledge in a ludicrously little amount of time. But how to keep orientation in this unexplored sea of knowledge? Here it comes ProjectEir.</p>
-
-      <div class="row">
-
-        <div class="col-3-card card-panel">
-          <blockquote>
-            <p class="promo-caption">Goals</p>
-          </blockquote>
-
-          <ul class="browser-default">
-            <li>
-              Make it easy to find details
-            </li>
-            <li>
-              Give a good overview
-            </li>
-          </ul>
-
-        </div>
-        <div class="col-3-card card-panel">
-          <blockquote>
-            <p class="promo-caption">Challenges</p>
-          </blockquote>
-
-          <ul class="browser-default">
-            <li>
-              Finding a sutable visualization
-            </li>
-            <li>
-              Work with the data
-            </li>
-            <li>
-              And so on
-            </li>
-          </ul>
-
-        </div>
-        <div class="col-3-card card-panel">
-          <blockquote>
-            <p class="promo-caption">Learning objectives</p>
-          </blockquote>
-
-          <ul class="browser-default">
-            <li>
-              Make it easy to find details
-            </li>
-            <li>
-              Give a good overview
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-
-
-      <div class="divider"></div>
-
-      <h3 class="header center-align">Structure</h3>
-      <!-- also incl. The interaction and view transformations -->
-      <blockquote>
-        <p class="promo-caption">Users and their tasks</p>
-      </blockquote>
-
-      <blockquote>
-        <p class="promo-caption">Visual mappings</p>
-      </blockquote>
-
-      <h3 class="header center-align">The result</h3>
-
-      <blockquote>
-        <p class="promo-caption">Description</p>
-      </blockquote>
-
-      <blockquote>
-        <p class="promo-caption">Users and their tasks</p>
-      </blockquote>
-
-
-
-
+    </nav>
 
     </div>
 
 
-  </div>
-  <script>
-    $('.button-collapse').sideNav({
-      menuWidth: 200, // Default is 300
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-      draggable: false, // Choose whether you can drag to open on touch screens,
-      onOpen: function(el) {
-        /* Do Stuff*/
-      },
-      onClose: function(el) {
-        /* Do Stuff*/
-      },
-    });
+    <script>
+        $('.button-collapse').sideNav({
+            menuWidth: 200, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: false, // Choose whether you can drag to open on touch screens,
+            onOpen: function (el) { /* Do Stuff*/ },
+            onClose: function (el) { /* Do Stuff*/ },
+        });
 
-    var isHidden = false;
-    $("#show-sidebar").click(function() {
-      if (isHidden) {
-        //show sidebar
-        $('#slide-out').addClass('fixed');
-        //decrease graph size
-        //$("svg").width($("svg").width() - 200);
-      } else {
-        //hide sidebar
-        $('#slide-out').removeClass('fixed');
-        $('.button-collapse').sideNav('hide');
-        //enlarge graph
-        //$("svg").width($("svg").width() + 200);
-      }
-      isHidden = !isHidden;
-    });
+        var isHidden = false;
+        $("#show-sidebar").click(function () {
+            if (isHidden) {
+                //show sidebar
+                $('#slide-out').addClass('fixed');
+                //decrease graph size
+                //$("svg").width($("svg").width() - 200);
+            } else {
+                //hide sidebar
+                $('#slide-out').removeClass('fixed');
+                $('.button-collapse').sideNav('hide');
+                //enlarge graph
+                //$("svg").width($("svg").width() + 200);
+            }
+            isHidden = !isHidden;
+        });
 
 
-    jQuery(document).ready(function() {
-      jQuery('.sidenav-toggle').sideNav();
-    });
-  </script>
+        jQuery(document).ready(function () {
+            jQuery('.sidenav-toggle').sideNav();
+        });
+
+    </script>
 </body>
 
 </html>
