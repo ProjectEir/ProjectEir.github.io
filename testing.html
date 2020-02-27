@@ -1,0 +1,66 @@
+<!doctype html>
+
+
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <div id="buttons">
+        <select id="selectButton"></select>
+    </div>
+    <div id="text"></div>
+</body>
+
+<script>
+
+    var Diseases = [
+              "Agraphia",
+              "Alcohol Withdrawal Seizures",
+              "Alzheimer Disease"
+          ];
+    // Adds values into select
+    d3.select("#selectButton")
+        .selectAll("myOptions")
+        .data(Diseases)
+        .enter()
+        .append("option")
+        .text(d => d)
+        .attr("value", d => d);
+
+    // When the button is changed, run the updateChart function
+    d3.select("#selectButton").on("change", function (d) {
+        // recover the option that has been chosen
+        var selectedOption = d3.select(this).property("value")
+        format = selectedOption.split(" ").join("+");
+        url = "https://clinicaltrials.gov/api/query/study_fields?expr=" + format + "%0D%0A%0D%0A&fields=Condition%2C+BriefTitle%2C+LocationCountry&min_rnk=1&max_rnk=&fmt=csv";
+        getData(url);
+        //console.log(url)
+
+
+    });
+
+
+    function getData(url) {
+        var request = new XMLHttpRequest();
+        request.open("GET", url);
+        request.onreadystatechange = function () {
+            if (request.readyState === 4 && request.status === 200) {
+                //console.log(request.responseText);
+                trim(request.responseText);
+                //response handling code
+            }
+        };
+        request.send(null); // Send the request now
+
+        function trim(s) {
+            var lines = s.split('\n')
+            lines.splice(0, 10);
+            var newlines = lines.join('\n');
+            console.log(newlines);
+        }
+    }
+
+
+</script>
+</html>
