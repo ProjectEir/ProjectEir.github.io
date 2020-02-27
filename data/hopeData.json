@@ -1,0 +1,99 @@
+{
+  "name": "root",
+  "children": [
+    {
+      "name": "Cancers and Other Neoplasms",
+      "children": [
+        {
+          "name": "Breast Cancer",
+          "children": [
+            {
+              "name": "Rehabilitation After Breast Cancer",
+              "value": 1
+            },
+            {
+              "name": "Imagining With [11C] Martinostat in Breast Cancer",
+              "value": 1
+            },
+            {
+              "name": "Individualizing Surveillance Mammography for Older Breast Cancer Survivors",
+              "value": 1
+            },
+            {
+              "name": "Elevate! : An Elderly Breast Cancer Cohort Study",
+              "value": 1
+            },
+            {
+              "name": "Olaparib + Sapacitabine in BRCA Mutant Breast Cancer",
+              "value": 1
+            },
+            {
+              "name": "Topical Calcipotriene Treatment for Breast Cancer Immunoprevention",
+              "value": 1
+            },
+            {
+              "name": "Young, Empowered & Strong (YES): The Young Women's Breast Cancer Study 2- Focus on Intervention Pilot",
+              "value": 1
+            },
+            {
+              "name": "Supine MRI in Breast Cancer Patients Receiving Neoadjuvant Therapy",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Immune System Diseases",
+      "children": [
+        [
+          {
+            "name": "Diabetes Mellitus, Type 1",
+            "children": [
+              {
+                "name": "Carbohydrate Content in the Diet in Type 1 Diabetes",
+                "value": 1
+              },
+              {
+                "name": "ATG-GCSF in New Onset Type 1 Diabetes",
+                "value": 1
+              },
+              {
+                "name": "Albiglutide Versus Placebo in Insulin-treated Subjects With New-onset Type 1 Diabetes Mellitus",
+                "value": 1
+              },
+              {
+                "name": "A Study of Effects of Canagliflozin as Add-on Therapy to Insulin in the Treatment of Participants With Type 1 Diabetes Mellitus (T1DM)",
+                "value": 1
+              },
+              {
+                "name": "Cellular Therapy for Type 1 Diabetes Using Mesenchymal Stem Cells",
+                "value": 1
+              },
+              {
+                "name": "Sleep, Coping and Executive Functioning in Youth With Type 1 Diabetes",
+                "value": 1
+              },
+              {
+                "name": "Efficacy of Coenzyme q10 in Pediatrics With Type 1 Diabetes Mellitus",
+                "value": 1
+              },
+              {
+                "name": "PK/PD Biosimilarity Study of Gan & Lee Insulin Glargine Injection vs.US & EU Lantus® in Type 1 Diabetes Mellitus Patients",
+                "value": 1
+              },
+              {
+                "name": "Physical Activity Monitoring Paediatric Type 1 Diabetes",
+                "value": 1
+              },
+              {
+                "name": "Safety/Efficacy Study of Subcutaneously Injected Prandial Insulins Compared to Insulin Lispro Alone in Participants With Type 1 Diabetes Mellitus",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ]
+}
