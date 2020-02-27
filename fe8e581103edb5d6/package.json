@@ -1,0 +1,14 @@
+{
+  "name": "fe8e581103edb5d6",
+  "main": "fe8e581103edb5d6@321.js",
+  "version": "321.0.0",
+  "homepage": "https://observablehq.com/d/fe8e581103edb5d6",
+  "author": {
+    "name": "Gabriel Ringmar",
+    "url": "https://observablehq.com/@gringmar"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
