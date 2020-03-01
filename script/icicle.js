@@ -57,7 +57,6 @@ d3.json("data/dataX.json", function(error, root) {
   d3.select("#explanation").style("visibility", "");
   var sequenceArray = root.ancestors().reverse();
 
-  //sequenceArray.shift(); // remove root node from the array
   updateBreadcrumbs(sequenceArray, percentageString);
 
   rect = rect
@@ -116,7 +115,6 @@ d3.json("data/dataX.json", function(error, root) {
     .text(function(d) {
       return d.data.key;
     })
-    //.call(wrap, "width")
     .on("click", switchData);
 
   //get total size from rect
@@ -130,16 +128,6 @@ function switchData(d) {
     .select("svg")
     .remove(); //Remove existing viz the limit the amount of data as one
 
-  //Create basic attr again
-  //works without this part
-  /* var width = window.innerWidth - 200,
-    height = window.innerHeight - 64 - 85;
-
-  var x = d3.scaleLinear().range([0, width]);
-  var y = d3.scaleLinear().range([0, height]);
-  var color = d3.scaleOrdinal(d3.schemeCategory20c);*/
-
-  // TODO: rescale the icicle to fill the page
   //Define new domains (Fill the page again)
   x.domain([d.x0, d.x1]);
   y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
@@ -213,62 +201,6 @@ function switchData(d) {
     .on("click", switchData);
 
   //Breadcrumb (from clicked function)//
-  // code to update the BreadcrumbTrail();
-  var percentage = ((100 * d.value) / totalSize).toPrecision(3);
-  var percentageString = percentage + "%";
-  if (percentage < 0.1) {
-    percentageString = "< 0.1%";
-  }
-
-  d3.select("#percentage").text(percentageString + d.value);
-
-  d3.select("#explanation").style("visibility", "");
-
-  var sequenceArray = d.ancestors().reverse();
-  //sequenceArray.shift(); // remove root node from the array
-  updateBreadcrumbs(sequenceArray, percentageString);
-}
-
-function clicked(d) {
-  x.domain([d.x0, d.x1]);
-  y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
-
-  rect
-    .transition()
-    .duration(750)
-    .attr("x", function(d) {
-      return x(d.x0);
-    })
-    .attr("y", function(d) {
-      return y(d.y0);
-    })
-    .attr("width", function(d) {
-      return x(d.x1) - x(d.x0);
-    })
-    .attr("height", function(d) {
-      return y(d.y1) - y(d.y0);
-    });
-
-  fo.transition()
-    .duration(750)
-    .attr("x", function(d) {
-      return x(d.x0);
-    })
-    .attr("y", function(d) {
-      return y(d.y0);
-    })
-    .attr("width", function(d) {
-      return x(d.x1) - x(d.x0);
-    })
-    .attr("height", function(d) {
-      var h = y(d.y1 - d.y0);
-      if (h >= 18) {
-        return y(d.y1 - d.y0);
-      } else {
-        return 18;
-      }
-    });
-
   // code to update the BreadcrumbTrail();
   var percentage = ((100 * d.value) / totalSize).toPrecision(3);
   var percentageString = percentage + "%";
