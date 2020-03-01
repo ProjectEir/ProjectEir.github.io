@@ -2,7 +2,10 @@
 
 
 <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
 </head>
 
 <body>
@@ -13,7 +16,8 @@
         <input type="checkbox" id="StartDate" value="StartDate">Start Date
         <input type="checkbox" id="CompletionDate" value="CompletionDate"> Completion Date
         <input type="checkbox" id="LastUpdatePostDate" value="LastUpdatePostDate"> Last Update Post Date
-        <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate" value="OutcomeMeasureAnticipatedPostingDate"> Outcome Measure Anticipated Posting Date
+        <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate" value="OutcomeMeasureAnticipatedPostingDate">
+        Outcome Measure Anticipated Posting Date
         <input type="checkbox" id="ResultsFirstPostDate" value="ResultsFirstPostDate"> Results First Post Date
         <input type="checkbox" id="ResultsFirstSubmitDate" value="ResultsFirstSubmitDate"> Results First Submit Date
     </div>
@@ -69,6 +73,7 @@
             format = selectedOption.split(" ").join("+");
             url = makeUrl(format);
             getData(url);
+            window.open(url);
         }
         //console.log(url)
     });
@@ -108,10 +113,18 @@
             var lines = s.split('\n')
             lines.splice(0, 10);
             var newlines = lines.join('\n');
-            console.log(newlines);
+
+            //      var hiddenElement = document.createElement('a');
+            //hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(newlines);
+            //  hiddenElement.target = '_blank';
+            //hiddenElement.download = 'qData.csv';
+            //hiddenElement.click();
+            //     renders(hiddenElement);
         }
     }
 
 
 </script>
+<script type="text/javascript" src="script/Parallel.js"></script>
+
 </html>
