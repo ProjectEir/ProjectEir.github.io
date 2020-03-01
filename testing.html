@@ -8,17 +8,50 @@
 <body>
     <div id="buttons">
         <select id="selectButton"></select>
+        <input type="checkbox" id="Phase" value="Phase"> Phase
+        <input type="checkbox" id="EnrollmentCount" value="EnrollmentCount"> Enrollment Count
+        <input type="checkbox" id="StartDate" value="StartDate">Start Date
+        <input type="checkbox" id="CompletionDate" value="CompletionDate"> Completion Date
+        <input type="checkbox" id="LastUpdatePostDate" value="LastUpdatePostDate"> Last Update Post Date
+        <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate" value="OutcomeMeasureAnticipatedPostingDate"> Outcome Measure Anticipated Posting Date
+        <input type="checkbox" id="ResultsFirstPostDate" value="ResultsFirstPostDate"> Results First Post Date
+        <input type="checkbox" id="ResultsFirstSubmitDate" value="ResultsFirstSubmitDate"> Results First Submit Date
     </div>
     <div id="text"></div>
 </body>
 
+<!-- Useful fields
+    - Condition--------------------------------------------Always
+    - Brief Title------------------------------------------Always
+    TOGGLEABLE DIMENSIONS
+    - Phase-----------------------------------------------X
+    - EnrollmentCount--------------------------------------X
+    - StartDate-------------------------------------------X
+    - CompletionDate---------------------------------------X
+    - LastUpdatePostDate-----------------------------------X
+    - OutcomeMeasureAnticipatedPostingDate----------------X
+    - ResultsFirstPostDate, ResultsFirstSubmitDate--------X
+
+    TOGGLEABLE FIELDS VIEWABLE IN SUMMARY
+    - Brief Summary
+    - EnrollmentType
+    - LastKnownStatus
+    - LeadSponsorName
+    - LocationCountry, LocationCity, LocationState
+    - OrgFullName
+    - Sampling Method
+    - SeeAlsoLinkURL
+    - StudyPopulation
+ -->
+
 <script>
 
     var Diseases = [
-              "Agraphia",
-              "Alcohol Withdrawal Seizures",
-              "Alzheimer Disease"
-          ];
+        "Select a Disease",
+        "Agraphia",
+        "Alcohol Withdrawal Seizures",
+        "Alzheimer Disease"
+    ];
     // Adds values into select
     d3.select("#selectButton")
         .selectAll("myOptions")
@@ -32,14 +65,32 @@
     d3.select("#selectButton").on("change", function (d) {
         // recover the option that has been chosen
         var selectedOption = d3.select(this).property("value")
-        format = selectedOption.split(" ").join("+");
-        url = "https://clinicaltrials.gov/api/query/study_fields?expr=" + format + "%0D%0A%0D%0A&fields=Condition%2C+BriefTitle%2C+LocationCountry&min_rnk=1&max_rnk=&fmt=csv";
-        getData(url);
+        if (selectedOption != "Select a Disease") {
+            format = selectedOption.split(" ").join("+");
+            url = makeUrl(format);
+            getData(url);
+        }
         //console.log(url)
-
-
     });
 
+    function makeUrl(disease) {
+        // Grab title and trial name of diseases
+        url = "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition";
+
+        // Add any checked boxes
+        if (document.getElementById("Phase").checked) { url += "%2C+Phase"; }
+        if (document.getElementById("EnrollmentCount").checked) { url += "%2C+EnrollmentCount"; }
+        if (document.getElementById("StartDate").checked) { url += "%2C+StartDate"; }
+        if (document.getElementById("CompletionDate").checked) { url += "%2C+CompletionDate"; }
+        if (document.getElementById("LastUpdatePostDate").checked) { url += "%2C+LastUpdatePostDate"; }
+        if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) { url += "%2C+OutcomeMeasureAnticipatedPostingDate"; }
+        if (document.getElementById("ResultsFirstPostDate").checked) { url += "%2C+ResultsFirstPostDate"; }
+        if (document.getElementById("ResultsFirstSubmitDate").checked) { url += "%2C+ResultsFirstSubmitDate"; }
+
+        // Grab up to 1000 (more than 1000 needs a CAPTCHA)
+        url += "&min_rnk=1&max_rnk=1000&fmt=csv";
+        return url;
+    }
 
     function getData(url) {
         var request = new XMLHttpRequest();
