@@ -30,43 +30,6 @@ var b = {
   t: 10
 };
 
-// -1- Create a tooltip div that is hidden by default:
-var tooltip = d3
-  .select("#my_dataviz")
-  .append("div")
-  .style("opacity", 0)
-  .attr("class", "tooltip")
-  .style("font-family", "Poppins")
-  .style("padding", "10px")
-  .style("border-radius", "5px")
-  .style("background-color", "WhiteSmoke")
-  .style("box-shadow", "10px 10px 28px 0px rgba(0,0,0,0.75)")
-  .style("position", "absolute")
-  .style("color", "black");
-
-// -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-var showTooltip = function(d) {
-  tooltip.transition().duration(200);
-  tooltip
-    .style("opacity", 1)
-    .html("Country: " + d.Country + "<br/>Continent: " + d.Continent)
-    .style("left", d3.mouse(this)[0] - 30 + "px")
-    .style("top", d3.mouse(this)[1] + 100 + "px");
-};
-
-var moveTooltip = function(d) {
-  tooltip
-    .style("left", d3.mouse(this)[0] - 30 + "px")
-    .style("top", d3.mouse(this)[1] + 100 + "px");
-};
-
-var hideTooltip = function(d) {
-  tooltip
-    .transition()
-    .duration(500)
-    .style("opacity", 0);
-};
-
 var rect = vis.selectAll("rect");
 var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
@@ -102,6 +65,7 @@ d3.json("data/dataX.json", function(error, root) {
   rect = rect
     .data(root.descendants())
     .enter()
+    //.filter(d => d.x1 - d.x0 > 1)
     .append("rect")
     .attr("x", function(d) {
       return d.x0;
@@ -123,57 +87,73 @@ d3.json("data/dataX.json", function(error, root) {
       return color((d.children ? d : d.parent).data.key);
     })
     .attr("stroke", "white")
-    .style("cursor", "pointer")
-    .on("mouseover", showTooltip)
-    .on("mouseleave", hideTooltip)
     .on("click", switchData);
 
   fo = fo
     .data(root.descendants())
     .enter()
+    .filter(d => d.x1 - d.x0 > 5)
     .append("foreignObject")
     .attr("x", function(d) {
-      return d.x0;
+      if (d.x1 - d.x0 <= 80) {
+        return 0;
+      } else {
+        return d.x0;
+      }
     })
     .attr("y", function(d) {
-      return d.y0;
-    })
-    .attr("width", function(d) {
-      if (d.x1 - d.x0 >= 20) {
-        return d.x1 - d.x0;
+      if (d.x1 - d.x0 <= 80) {
+        return 0;
       } else {
-        0;
+        return d.y0;
+      }
+    })
+
+    .attr("width", function(d) {
+      if (d.x1 - d.x0 <= 20) {
+        return;
+      }
+      if (d.x1 - d.x0 <= 80) {
+        return 400;
+      } else {
+        return d.x1 - d.x0;
       }
     })
     .attr("height", function(d) {
       return d.y1 - d.y0;
     })
-    .attr("fill", function(d) {
-      return color((d.children ? d : d.parent).data.key);
+    .attr("text-anchor", "middle")
+    .attr("transform", function(d) {
+      if (d.x1 - d.x0 <= 80) {
+        var transformproperty =
+          "translate(" + d.x1 + " " + (d.y0 + 10) + ") rotate(90)";
+        console.log(transformproperty);
+        return transformproperty;
+      } else {
+        ("none");
+      }
     })
     .style("cursor", "pointer")
-    .attr("text-size", 10)
     .text(function(d) {
-      return d.data.key;
-    })
-    .attr("stroke", "white")
-    .on("mouseover", showTooltip)
-    .on("mousemove", showTooltip)
-    .on("mouseleave", hideTooltip)
-    .on("click", switchData);
-
+      if (d.x1 - d.x0 > 5) {
+        return d.data.key;
+      } else {
+        return;
+      }
+    });
   //get total size from rect
   totalSize = rect.node().__data__.value;
 });
 
 function switchData(d) {
   var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
-  console.log(basecolor);
+
   d3.select("#chart")
     .select("svg")
     .remove(); //Remove existing viz the limit the amount of data as one
 
   //Define new domains (Fill the page again)
+
   x.domain([d.x0, d.x1]);
   y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
@@ -215,16 +195,9 @@ function switchData(d) {
     .attr("height", function(d) {
       return y(d.y1) - y(d.y0);
     })
-    .attr("fill", function(d) {
-      //same as the one you clicked on
-      return color((d.children ? d : d.parent).data.key);
-    })
+    .attr("fill", basecolor) //same as the one you clicked on
     .attr("stroke", "white")
     .style("cursor", "pointer")
-    .attr("stroke", "white")
-    .on("mouseover", showTooltip)
-    .on("mousemove", showTooltip)
-    .on("mouseleave", hideTooltip)
     .on("click", switchData);
 
   //new text
@@ -233,16 +206,27 @@ function switchData(d) {
     .enter()
     .append("foreignObject")
     .attr("x", function(d) {
-      return x(d.x0);
+      if (x(d.x1) - x(d.x0) <= 80) {
+        return 0;
+      } else {
+        return x(d.x0);
+      }
     })
     .attr("y", function(d) {
-      return y(d.y0);
+      if (x(d.x1) - x(d.x0) <= 80) {
+        return 0;
+      } else {
+        return y(d.y0);
+      }
     })
     .attr("width", function(d) {
-      if (x(d.x1) - x(d.x0) >= 20) {
-        return x(d.x1) - x(d.x0);
+      if (x(d.x1) - x(d.x0) <= 20) {
+        return;
+      }
+      if (x(d.x1) - x(d.x0) <= 80) {
+        return 400;
       } else {
-        return 0;
+        return x(d.x1) - x(d.x0);
       }
     })
     .attr("height", function(d) {
@@ -253,15 +237,25 @@ function switchData(d) {
         return 18;
       }
     })
+    .attr("text-anchor", "middle")
+    .attr("transform", function(d) {
+      if (x(d.x1) - x(d.x0) <= 80) {
+        var transformproperty =
+          "translate(" + x(d.x0) + " " + (y(d.y0) + 10) + ") rotate(90)";
+        console.log(transformproperty);
+        return transformproperty;
+      } else {
+        ("none");
+      }
+    })
     .style("cursor", "pointer")
     .text(function(d) {
-      return d.data.key;
-    })
-    .attr("stroke", "white")
-    .on("mouseover", showTooltip)
-    .on("mousemove", showTooltip)
-    .on("mouseleave", hideTooltip)
-    .on("click", switchData);
+      if (x(d.x1) - x(d.x0) > 5) {
+        return d.data.key;
+      } else {
+        return;
+      }
+    });
 
   //Breadcrumb (from clicked function)//
   // code to update the BreadcrumbTrail();
@@ -351,8 +345,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
       }
     })
     .style("cursor", "pointer")
-    .call(wrap, b.w - b.t)
-    .on("click", switchData);
+    .call(wrap, b.w - b.t);
 
   // Merge enter and update selections; set position for all nodes.
   entering.merge(trail).attr("transform", function(d, i) {

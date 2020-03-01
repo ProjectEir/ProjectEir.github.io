@@ -76,8 +76,32 @@
       });
 
       //      //
-      //icicle//
+      //Rotate//
       //      //
+      //Make an SVG Container
+      var svgContainer = d3
+        .select("body")
+        .append("svg")
+        .attr("width", 800)
+        .attr("height", 800);
+
+      //Draw the Rectangle
+      var rectangle = svgContainer
+        .append("rect")
+        .attr("x", 350)
+        .attr("y", 350)
+        .attr("width", 50)
+        .attr("height", 100)
+        .style("stroke-width", 1)
+        .style("stroke", "black")
+        .style("fill", "none");
+
+      var text = d3
+        .select("svg")
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("transform", "translate(350,350) rotate(90)")
+        .text("Hej");
     </script>
   </body>
 </html>
