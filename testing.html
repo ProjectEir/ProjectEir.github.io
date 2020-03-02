@@ -65,18 +65,49 @@
         .text(d => d)
         .attr("value", d => d);
 
-    // When the button is changed, run the updateChart function
+    // When the button is changed, Create a new parallel Coordinates System
     d3.select("#selectButton").on("change", function (d) {
         // recover the option that has been chosen
         var selectedOption = d3.select(this).property("value")
         if (selectedOption != "Select a Disease") {
             format = selectedOption.split(" ").join("+");
             url = makeUrl(format);
-            getData(url);
-            window.open(url);
+            ajax(url)
+                .then(function (result) {
+                    // Here we can build the parallel coordinate system
+                    myData = trim(result);
+                    myDimensions = makeDimensions();
+                    // use d3.csvParse(myData){...}
+                    // see https://stackoverflow.com/questions/42285441/how-to-read-in-csv-with-d3-v4
+                    console.log(myData);
+                    console.log(myDimensions);
+                })
+                .catch(function () {
+                    // An error occurred
+                });
         }
-        //console.log(url)
     });
+
+    // Returns csv of selected query
+    function ajax(url) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(this.responseText);
+            };
+            xhr.onerror = reject;
+            xhr.open('GET', url);
+            xhr.send();
+        });
+    };
+
+    // Formatting needed to have pure csv
+    function trim(s) {
+        var lines = s.split('\n');
+        lines.splice(0, 10);
+        var newlines = lines.join('\n');
+        return newlines;
+    };
 
     function makeUrl(disease) {
         // Grab title and trial name of diseases
@@ -96,31 +127,67 @@
         url += "&min_rnk=1&max_rnk=1000&fmt=csv";
         return url;
     }
-
-    function getData(url) {
-        var request = new XMLHttpRequest();
-        request.open("GET", url);
-        request.onreadystatechange = function () {
-            if (request.readyState === 4 && request.status === 200) {
-                //console.log(request.responseText);
-                trim(request.responseText);
-                //response handling code
-            }
-        };
-        request.send(null); // Send the request now
-
-        function trim(s) {
-            var lines = s.split('\n')
-            lines.splice(0, 10);
-            var newlines = lines.join('\n');
-
-            //      var hiddenElement = document.createElement('a');
-            //hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(newlines);
-            //  hiddenElement.target = '_blank';
-            //hiddenElement.download = 'qData.csv';
-            //hiddenElement.click();
-            //     renders(hiddenElement);
+ 
+    function makeDimensions() {
+        dim = []
+        if (document.getElementById("Phase").checked) {
+            dim = dim.concat({
+                key: "Phase",
+                description: "Phase",
+                type: types["String"]
+            })
         }
+        
+        if (document.getElementById("EnrollmentCount").checked) {
+            dim = dim.concat({
+                key: "EnrollmentCount",
+                description: "Enrollment Count",
+                type: types["Number"]
+            });
+        }
+        if (document.getElementById("StartDate").checked) {
+            dim = dim.concat({
+                key: "StartDate",
+                description: "Start Date",
+                type: types["Date"]
+            });
+        }
+        if (document.getElementById("CompletionDate").checked) {
+            dim = dim.concat({
+                key: "CompletionDate",
+                description: "Completion Date",
+                type: types["Date"]
+            });
+        }
+        if (document.getElementById("LastUpdatePostDate").checked) {
+            dim = dim.concat({
+                key: "LastUpdatePostDate",
+                description: "Last Update Post Date",
+                type: types["Date"]
+            });
+        }
+        if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
+            dim = dim.concat({
+                key: "OutcomeMeasureAnticipatedPostingDate",
+                description: "Outcome Measure Anticipated Posting Date",
+                type: types["Date"]
+            });
+        }
+        if (document.getElementById("ResultsFirstPostDate").checked) {
+            dim = dim.concat({
+                key: "ResultsFirstPostDate",
+                description: "Results First Post Date",
+                type: types["Date"]
+            });
+        }
+        if (document.getElementById("ResultsFirstSubmitDate").checked) {
+            dim = dim.concat({
+                key: "ResultsFirstSubmitDate",
+                description: "Results First Submit Date",
+                type: types["Date"]
+            });
+        }
+        return dim;
     }
 
 
