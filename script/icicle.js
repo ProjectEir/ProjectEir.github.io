@@ -128,6 +128,33 @@ d3.json("data/dataX.json", function(error, root) {
     .on("mouseleave", hideTooltip)
     .on("click", switchData);
 
+    div = div
+    .data(root.descendants())
+    .enter()
+    .append("div")
+    .attr("x", function(d) {
+      return d.x0;
+    })
+    .attr("y", function(d) {
+      return d.y0;
+    })
+    .attr("width", function(d) {
+      if (d.x1 - d.x0 >= 0) {
+        return d.x1 - d.x0;
+      } else {
+        0;
+      }
+    })
+    .attr("height", function(d) {
+      return d.y1 - d.y0;
+    })
+    .attr("fill", function(d) {
+      return color((d.children ? d : d.parent).data.key);
+    })
+    .attr("stroke", "white")
+    .on("mouseover", showTooltip)
+    .on("mouseleave", hideTooltip);
+
   fo = fo
     .data(root.descendants())
     .enter()

@@ -21,6 +21,18 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- script type="text/javascript" src="script/d3.v2.min.js"></script -->
+    <script>
+document.getElementById("rect").addEventListener("mouseover", mouseOver);
+document.getElementById("chart").addEventListener("mouseout", mouseOut);
+
+function mouseOver() {
+  document.getElementById("info").show() = true;
+}
+
+function mouseOut() {
+  document.getElementById("info").show() = false;
+}
+</script>
     <title>Project Eir</title>
   </head>
 
@@ -47,9 +59,11 @@
       <section id="main_content" class="inner">
         <div>
           <div id="chart"></div>
+          <div id="info"></div>
           <script type="text/javascript" src="script/icicle.js"></script>
         </div>
       </section>
     </div>
   </body>
+
 </html>
