@@ -105,14 +105,27 @@
     function trim(s) {
         var lines = s.split('\n');
         lines.splice(0, 10);
+        for (i = 0; i < lines.length; i++) {
+            line = lines[i].split(',');
+            for (j = 0; j < line.length; j++) {
+                if (line[j] == "") {
+                    line[j] = '"' + 0 + '"';
+                }
+            }
+            lines[i] = line.join(',');
+        }
+        lines.splice(lines.length - 1, lines.length);
         var newlines = lines.join('\n');
+        
         return newlines;
     };
 
     function makeUrl(disease) {
         // Grab title and trial name of diseases
-        url = "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition";
+        return "https://clinicaltrials.gov/api/query/study_fields?expr=Agraphia%0D%0A&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=1000&fmt=csv";
 
+
+        url = "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition";
         // Add any checked boxes
         if (document.getElementById("Phase").checked) { url += "%2C+Phase"; }
         if (document.getElementById("EnrollmentCount").checked) { url += "%2C+EnrollmentCount"; }
@@ -127,7 +140,7 @@
         url += "&min_rnk=1&max_rnk=1000&fmt=csv";
         return url;
     }
- 
+
     function makeDimensions() {
         dim = []
         if (document.getElementById("Phase").checked) {
@@ -137,7 +150,7 @@
                 type: types["String"]
             })
         }
-        
+
         if (document.getElementById("EnrollmentCount").checked) {
             dim = dim.concat({
                 key: "EnrollmentCount",
@@ -187,6 +200,7 @@
                 type: types["Date"]
             });
         }
+
         return dim;
     }
 
