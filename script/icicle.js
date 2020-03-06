@@ -45,7 +45,7 @@ var tooltip = d3
   .style("color", "black");
 
 // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-var showTooltip = function(d) {
+var showTooltip = function (d) {
   tooltip.transition().duration(200);
   tooltip
     .style("opacity", 1)
@@ -54,13 +54,13 @@ var showTooltip = function(d) {
     .style("top", d3.mouse(this)[1] + 100 + "px");
 };
 
-var moveTooltip = function(d) {
+var moveTooltip = function (d) {
   tooltip
     .style("left", d3.mouse(this)[0] - 30 + "px")
     .style("top", d3.mouse(this)[1] + 100 + "px");
 };
 
-var hideTooltip = function(d) {
+var hideTooltip = function (d) {
   tooltip
     .transition()
     .duration(500)
@@ -71,16 +71,37 @@ var rect = vis.selectAll("rect");
 var fo = vis.selectAll("foreignObject");
 var totalSize = 0;
 
-d3.json("data/dataX.json", function(error, root) {
+d3.json("data/dataX.json", function (error, root) {
   if (error) throw error;
+
+  //submit function
+  $("#search").submit(function () {
+    //console.log("submitted");
+    var disease = $('#search_disease').val();
+    //search json object by key
+    //console.log(root.descendants());
+    var obj;
+    var found = false;
+    var i = 0;
+    while(!found && i < root.descendants().length ){
+      if(root.descendants()[i].data.key == disease){
+        obj = root.descendants()[i];
+        found = true;
+      }
+      i++;
+    }
+
+    switchData(obj);
+  });
+
   root = d3
-    .hierarchy(d3.entries(root)[0], function(d) {
+    .hierarchy(d3.entries(root)[0], function (d) {
       return d3.entries(d.value);
     })
-    .sum(function(d) {
+    .sum(function (d) {
       return d.value;
     })
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       return b.value - a.value;
     });
 
@@ -103,23 +124,23 @@ d3.json("data/dataX.json", function(error, root) {
     .data(root.descendants())
     .enter()
     .append("rect")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0;
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       if (d.x1 - d.x0 >= 0) {
         return d.x1 - d.x0;
       } else {
         0;
       }
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.y1 - d.y0;
     })
-    .attr("fill", function(d) {
+    .attr("fill", function (d) {
       return color((d.children ? d : d.parent).data.key);
     })
     .attr("stroke", "white")
@@ -128,27 +149,27 @@ d3.json("data/dataX.json", function(error, root) {
     .on("mouseleave", hideTooltip)
     .on("click", switchData);
 
-    div = div
+  div = div
     .data(root.descendants())
     .enter()
     .append("div")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0;
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       if (d.x1 - d.x0 >= 0) {
         return d.x1 - d.x0;
       } else {
         0;
       }
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.y1 - d.y0;
     })
-    .attr("fill", function(d) {
+    .attr("fill", function (d) {
       return color((d.children ? d : d.parent).data.key);
     })
     .attr("stroke", "white")
@@ -159,28 +180,28 @@ d3.json("data/dataX.json", function(error, root) {
     .data(root.descendants())
     .enter()
     .append("foreignObject")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0;
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       if (d.x1 - d.x0 >= 20) {
         return d.x1 - d.x0;
       } else {
         0;
       }
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.y1 - d.y0;
     })
-    .attr("fill", function(d) {
+    .attr("fill", function (d) {
       return color((d.children ? d : d.parent).data.key);
     })
     .style("cursor", "pointer")
     .attr("text-size", 10)
-    .text(function(d) {
+    .text(function (d) {
       return d.data.key;
     })
     .attr("stroke", "white")
@@ -194,8 +215,9 @@ d3.json("data/dataX.json", function(error, root) {
 });
 
 function switchData(d) {
-  var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
-  console.log(basecolor);
+  console.log(d);
+  //var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
+  //console.log(basecolor);
   d3.select("#chart")
     .select("svg")
     .remove(); //Remove existing viz the limit the amount of data as one
@@ -226,23 +248,23 @@ function switchData(d) {
     .data(d.descendants())
     .enter()
     .append("rect")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return x(d.x0);
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return y(d.y0);
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       if (x(d.x1) - x(d.x0) >= 0) {
         return x(d.x1) - x(d.x0);
       } else {
         return;
       }
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return y(d.y1) - y(d.y0);
     })
-    .attr("fill", function(d) {
+    .attr("fill", function (d) {
       //same as the one you clicked on
       return color((d.children ? d : d.parent).data.key);
     })
@@ -259,20 +281,20 @@ function switchData(d) {
     .data(d.descendants())
     .enter()
     .append("foreignObject")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return x(d.x0);
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return y(d.y0);
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       if (x(d.x1) - x(d.x0) >= 20) {
         return x(d.x1) - x(d.x0);
       } else {
         return 0;
       }
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       var h = y(d.y1 - d.y0);
       if (h >= 18) {
         return y(d.y1 - d.y0);
@@ -281,7 +303,7 @@ function switchData(d) {
       }
     })
     .style("cursor", "pointer")
-    .text(function(d) {
+    .text(function (d) {
       return d.data.key;
     })
     .attr("stroke", "white")
@@ -345,7 +367,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
   var trail = d3
     .select("#trail")
     .selectAll("g")
-    .data(nodeArray, function(d) {
+    .data(nodeArray, function (d) {
       return d.data.key + d.depth;
     });
 
@@ -358,7 +380,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
   entering
     .append("svg:polygon")
     .attr("points", breadcrumbPoints)
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       return color((d.children ? d : d.parent).data.key);
     })
     .style("cursor", "pointer")
@@ -370,7 +392,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
     .attr("y", b.h / 2)
     .attr("dy", "0.35em")
     .attr("text-anchor", "start")
-    .text(function(d) {
+    .text(function (d) {
       if (!d.data.key) {
         return "Overview";
       } else {
@@ -382,7 +404,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
     .on("click", switchData);
 
   // Merge enter and update selections; set position for all nodes.
-  entering.merge(trail).attr("transform", function(d, i) {
+  entering.merge(trail).attr("transform", function (d, i) {
     return "translate(" + i * (b.w + b.s) + ", 0)";
   });
 
@@ -396,7 +418,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
     .text("Total number of trails " + valueString);
 
   function wrap(text, width) {
-    text.each(function() {
+    text.each(function () {
       var text = d3.select(this),
         words = text
           .text()
