@@ -75,22 +75,25 @@ d3.json("data/dataX.json", function (error, root) {
   if (error) throw error;
 
   function f_search() {
-    //console.log("submitted");
     var disease = $('#search_disease').val();
-    //search json object by key
-    //console.log(root.descendants());
-    var obj;
-    var found = false;
-    var i = 0;
-    while (!found && i < root.descendants().length) {
-      if (root.descendants()[i].data.key == disease) {
-        obj = root.descendants()[i];
-        found = true;
+    if (disease != "") {
+      var obj;
+      var found = false;
+      var i = 0;
+      //search json object by key
+      while (!found && i < root.descendants().length) {
+        if (root.descendants()[i].data.key == disease) {
+          obj = root.descendants()[i];
+          found = true;
+        }
+        i++;
       }
-      i++;
-    }
 
-    switchData(obj, 1212);
+      switchData(obj, 1212);
+      $('#search_disease').val("");
+    } else {
+      alert("Empty search!");
+    }
   }
 
   $(function () {
@@ -261,10 +264,14 @@ function switchData(d, isSearch = 0) {
       return y(d.y0);
     })
     .attr("width", function (d) {
-      if (x(d.x1) - x(d.x0) >= 0) {
-        return x(d.x1) - x(d.x0);
+      if (isSearch == 1212) { //called from search bar
+        return 1080;
       } else {
-        return;
+        if (x(d.x1) - x(d.x0) >= 0) {
+          return x(d.x1) - x(d.x0);
+        } else {
+          return;
+        }
       }
     })
     .attr("height", function (d) {
@@ -295,7 +302,6 @@ function switchData(d, isSearch = 0) {
     })
     .attr("width", function (d) {
       if (isSearch == 1212) { //called from search bar
-        console.log(d.x0);
         return d.x0;
       } else {
         if (x(d.x1) - x(d.x0) >= 20) {
@@ -320,8 +326,10 @@ function switchData(d, isSearch = 0) {
     .attr("stroke", "white")
     .on("mouseover", showTooltip)
     .on("mousemove", showTooltip)
-    .on("mouseleave", hideTooltip)
-    .on("click", switchData);
+    .on("mouseleave", hideTooltip);
+  if (isSearch != 1212) {
+    fo = fo.on("click", switchData);
+  }
 
   //Breadcrumb (from clicked function)//
   // code to update the BreadcrumbTrail();
