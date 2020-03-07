@@ -74,8 +74,7 @@ var totalSize = 0;
 d3.json("data/dataX.json", function (error, root) {
   if (error) throw error;
 
-  //submit function
-  $("#search").submit(function () {
+  function f_search() {
     //console.log("submitted");
     var disease = $('#search_disease').val();
     //search json object by key
@@ -83,8 +82,8 @@ d3.json("data/dataX.json", function (error, root) {
     var obj;
     var found = false;
     var i = 0;
-    while(!found && i < root.descendants().length ){
-      if(root.descendants()[i].data.key == disease){
+    while (!found && i < root.descendants().length) {
+      if (root.descendants()[i].data.key == disease) {
         obj = root.descendants()[i];
         found = true;
       }
@@ -92,6 +91,12 @@ d3.json("data/dataX.json", function (error, root) {
     }
 
     switchData(obj);
+  }
+
+  $(function () {
+    $("#btn_src").click(function () {
+      f_search();
+    });
   });
 
   root = d3
