@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\css",
     "\\data",
     "\\script"
   ],
-  "SelectedNode": "\\script\\icicle.js",
+  "SelectedNode": "\\css\\style.css",
   "PreviewInSolutionExplorer": false
 }

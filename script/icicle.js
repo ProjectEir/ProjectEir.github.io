@@ -110,7 +110,8 @@ d3.json("data/dataX.json", function (error, root) {
       return b.value - a.value;
     });
 
-  partition(root);
+    partition(root);
+    switchData(root);
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
