@@ -90,7 +90,7 @@ d3.json("data/dataX.json", function (error, root) {
       i++;
     }
 
-    switchData(obj);
+    switchData(obj, 1212);
   }
 
   $(function () {
@@ -110,8 +110,8 @@ d3.json("data/dataX.json", function (error, root) {
       return b.value - a.value;
     });
 
-    partition(root);
-    switchData(root);
+  partition(root);
+  switchData(root);
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -220,7 +220,7 @@ d3.json("data/dataX.json", function (error, root) {
   totalSize = rect.node().__data__.value;
 });
 
-function switchData(d) {
+function switchData(d, isSearch = 0) {
   console.log(d);
   //var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
   //console.log(basecolor);
@@ -294,10 +294,15 @@ function switchData(d) {
       return y(d.y0);
     })
     .attr("width", function (d) {
-      if (x(d.x1) - x(d.x0) >= 20) {
-        return x(d.x1) - x(d.x0);
+      if (isSearch == 1212) { //called from search bar
+        console.log(d.x0);
+        return d.x0;
       } else {
-        return 0;
+        if (x(d.x1) - x(d.x0) >= 20) {
+          return x(d.x1) - x(d.x0);
+        } else {
+          return 0;
+        }
       }
     })
     .attr("height", function (d) {
