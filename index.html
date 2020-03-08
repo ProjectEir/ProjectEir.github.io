@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <!-- Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <!-- Compiled and minified JavaScript -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- script type="text/javascript" src="script/d3.v2.min.js"></script -->
-    <!--
-      <script>
+    <script>
         document.getElementById("rect").addEventListener("mouseover", mouseOver);
         document.getElementById("chart").addEventListener("mouseout", mouseOut);
 
@@ -34,103 +25,68 @@
         function mouseOut() {
             document.getElementById("info").show() = false;
         }
-      </script>
-    -->
+    </script>
     <title>Project Eir</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav>
-      <div class="nav-wrapper teal">
-        <ul id="nav-filter" class="center" style="width: 200px;">
-          <li><img class="emblem" src="images/emblem_white.png" /></li>
-          <li><a href="index.html">Home</a></li>
-        </ul>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="about.html">Project</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="testing.html">Parallel Demo</a></li>
-        </ul>
-      </div>
+        <div class="nav-wrapper teal">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="about.html">Project</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="testing.html">Parallel Demo</a></li>
+            </ul>
+        </div>
     </nav>
 
     <ul id="slide-out" class="side-nav fixed">
-      <div class="row">
-        <div class="input-field col s12">
-          <input
-            id="search_disease"
-            type="text"
-            class="validate"
-            list="diseases"
-          />
-          <label for="search_disease">Search Disease</label>
-          <datalist id="diseases"></datalist>
-          <input
-            type="button"
-            value="Search"
-            id="btn_src"
-            class="waves-effect waves-light btn"
-          />
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="search_disease" type="text" class="validate" list="diseases">
+                <label for="search_disease">Search Disease</label>
+                <datalist id="diseases"></datalist>
+                <input type="button" value="Search" id="btn_src" class="waves-effect waves-light btn">
+            </div>
         </div>
-      </div>
-      <li><div class="divider"></div></li>
-      <!--
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Second Filter</a></li>
-      -->
+        <li>
+            <div class="divider"></div>
+        </li>
+        <!--<li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Second Filter</a></li>-->
 
-      <div id="buttons" style="margin: 10px;">
-        <p>Select Desired Info</p>
-        <input type="checkbox" id="Phase" value="Phase" />
-        <label for="Phase"> Phase </label><br />
-        <input type="checkbox" id="EnrollmentCount" value="EnrollmentCount" />
-        <label for="EnrollmentCount"> Enrollment Count </label><br />
-        <input type="checkbox" id="StartDate" value="StartDate" />
-        <label for="StartDate"> Start Date </label><br />
-        <input type="checkbox" id="CompletionDate" value="CompletionDate" />
-        <label for="CompletionDate"> Completion Date </label><br />
-        <input
-          type="checkbox"
-          id="LastUpdatePostDate"
-          value="LastUpdatePostDate"
-        />
-        <label for="LastUpdatePostDate"> Last Update Post Date </label><br />
-        <input
-          type="checkbox"
-          id="OutcomeMeasureAnticipatedPostingDate"
-          value="OutcomeMeasureAnticipatedPostingDate"
-        />
-        <label for="OutcomeMeasureAnticipatedPostingDate">
-          Outcome Measure Anticipated Posting Date </label
-        ><br />
-        <input
-          type="checkbox"
-          id="ResultsFirstPostDate"
-          value="ResultsFirstPostDate"
-        />
-        <label for="ResultsFirstPostDate"> Results First Post Date </label
-        ><br />
-        <input
-          type="checkbox"
-          id="ResultsFirstSubmitDate"
-          value="ResultsFirstSubmitDate"
-        />
-        <label for="ResultsFirstSubmitDate"> Results First Submit Date </label
-        ><br />
-      </div>
+        <div id="buttons" style="margin: 10px;">
+            <p>Select Desired Info</p>
+            <input type="checkbox" id="Phase" value="Phase"> <label for="Phase"> Phase </label><br>
+            <input type="checkbox" id="EnrollmentCount" value="EnrollmentCount"> <label for="EnrollmentCount">
+                Enrollment Count </label><br>
+            <input type="checkbox" id="StartDate" value="StartDate"> <label for="StartDate"> Start Date </label><br>
+            <input type="checkbox" id="CompletionDate" value="CompletionDate"> <label for="CompletionDate"> Completion
+                Date </label><br>
+            <input type="checkbox" id="LastUpdatePostDate" value="LastUpdatePostDate"> <label for="LastUpdatePostDate">
+                Last Update Post Date </label><br>
+            <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate"
+                value="OutcomeMeasureAnticipatedPostingDate"> <label for="OutcomeMeasureAnticipatedPostingDate"> Outcome
+                Measure Anticipated Posting Date </label><br>
+            <input type="checkbox" id="ResultsFirstPostDate" value="ResultsFirstPostDate"> <label
+                for="ResultsFirstPostDate"> Results First Post Date </label><br>
+            <input type="checkbox" id="ResultsFirstSubmitDate" value="ResultsFirstSubmitDate"> <label
+                for="ResultsFirstSubmitDate"> Results First Submit Date </label><br>
+        </div>
     </ul>
 
     <div id="breadcrumb" style="margin-left: 200px;"></div>
     <div>
-      <section id="main_content" class="inner">
-        <div>
-          <div id="chart"></div>
-          <div id="info"></div>
-          <script type="text/javascript" src="script/icicle.js"></script>
-        </div>
-      </section>
+        <section id="main_content" class="inner">
+            <div>
+                <div id="chart"></div>
+                <div id="info"></div>
+                <script type="text/javascript" src="script/icicle.js"></script>
+            </div>
+        </section>
     </div>
 
     <script type="text/javascript" src="script/datasearch.js"></script>
-  </body>
+</body>
+
 </html>
