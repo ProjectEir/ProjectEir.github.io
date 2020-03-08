@@ -40,68 +40,153 @@
       </div>
     </nav>
 
-    <script>
-      $(".button-collapse").sideNav({
-        menuWidth: 200, // Default is 300
-        edge: "left", // Choose the horizontal origin
-        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-        draggable: false, // Choose whether you can drag to open on touch screens,
-        onOpen: function(el) {
-          /* Do Stuff*/
-        },
-        onClose: function(el) {
-          /* Do Stuff*/
-        }
-      });
+    <div class="container">
+      <h2 class="header center-align">Team Snortra</h2>
 
-      var isHidden = false;
-      $("#show-sidebar").click(function() {
-        if (isHidden) {
-          //show sidebar
-          $("#slide-out").addClass("fixed");
-          //decrease graph size
-          //$("svg").width($("svg").width() - 200);
-        } else {
-          //hide sidebar
-          $("#slide-out").removeClass("fixed");
-          $(".button-collapse").sideNav("hide");
-          //enlarge graph
-          //$("svg").width($("svg").width() + 200);
-        }
-        isHidden = !isHidden;
-      });
+      <div class="divider"></div>
 
-      jQuery(document).ready(function() {
-        jQuery(".sidenav-toggle").sideNav();
-      });
+      <div class="project-content">
+        <h3 class="header center-align">Background</h3>
 
-      //      //
-      //Rotate//
-      //      //
-      //Make an SVG Container
-      var svgContainer = d3
-        .select("body")
-        .append("svg")
-        .attr("width", 800)
-        .attr("height", 800);
+        <p>
+          We created this project because clinical trails are the future of
+          medicine. We were also chocked how bad and non interactive the current
+          tool is considering how many that are using it.
+        </p>
 
-      //Draw the Rectangle
-      var rectangle = svgContainer
-        .append("rect")
-        .attr("x", 350)
-        .attr("y", 350)
-        .attr("width", 50)
-        .attr("height", 100)
-        .style("stroke-width", 1)
-        .style("stroke", "black")
-        .style("fill", "none");
+        <p>
+          This project is very close to heart for us. Everyone know someone who
+          have died or is suffering from a disease. For example in US 1 in 2
+          woman and 1 in 3 men will develop cancer in their lifetime, and that
+          is only one disease out of thouseands.
+        </p>
+        <h3 class="header center-align">Togheter are strong</h3>
+        <p>
+          We were all involved in almost every part of the prject. Together we
+          have meet our stake holder, created slides, brainstormed, desided on
+          and designed our visual mappings and structures. We have tried to, by
+          our best effort, to manage the data and transform it into something we
+          can use in our project. Frontend is a big interest for all of us so
+          that is also one of the tings we have split between us.
+        </p>
 
-      var text = d3
-        .select("svg")
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("transform", "translate(350,350) rotate(90)")
-        .text("Hej");
-    </script>
+        <p>
+          However, there are some parts of the project that some of us put a bit
+          more effort into and those are the ones listed below.
+        </p>
+        <br />
+
+        <div class="row">
+          <div class="col s3 card-panel">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">group</i> <br />
+            </div>
+            <blockquote><p class="promo-caption">Together</p></blockquote>
+
+            <ul class="browser-default">
+              <li>Brainstormed</li>
+              <li>Meating with stake holder</li>
+              <li>Designed visual structures and mappings</li>
+              <li>Presented</li>
+            </ul>
+          </div>
+          <div class="col s3 card-panel">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">line_style</i>
+              <br />
+            </div>
+            <blockquote>
+              <p class="promo-caption">Emelia Johansson</p>
+            </blockquote>
+
+            <ul class="browser-default">
+              <li>Icicle</li>
+              <li>Website content</li>
+              <li>Designed logo</li>
+            </ul>
+          </div>
+          <div class="col s3 card-panel">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">storage</i>
+              <br />
+            </div>
+            <blockquote>
+              <p class="promo-caption">Aidan Kidder-Wolff</p>
+            </blockquote>
+
+            <ul class="browser-default">
+              <li>API</li>
+              <li>Parallell coordinates</li>
+              <li>Filters</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s3 card-panel">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">find_in_page</i>
+              <br />
+            </div>
+            <blockquote>
+              <p class="promo-caption">Federico Landorno</p>
+            </blockquote>
+
+            <ul class="browser-default">
+              <li>Breadcrumbs</li>
+              <li>Managed Trello</li>
+              <li>Searchbar</li>
+            </ul>
+          </div>
+          <div class="col s3 card-panel">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">insert_chart</i>
+              <br />
+            </div>
+            <blockquote>
+              <p class="promo-caption">Gabriel Ringmar</p>
+            </blockquote>
+
+            <ul class="browser-default">
+              <li>Parallell coordinates</li>
+              <li>API</li>
+            </ul>
+          </div>
+          <div class="col s3 card-panel ">
+            <div class="center-align">
+              <br />
+              <i class="material-icons large center-align icon">chat</i> <br />
+            </div>
+
+            <blockquote><p class="promo-caption">Carlo Barone</p></blockquote>
+
+            <ul class="browser-default">
+              <li>Tooltips</li>
+            </ul>
+          </div>
+        </div>
+        <br />
+        <br />
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          &copy; Copyright 2020 Team Snortra
+
+          <a
+            class="grey-text text-lighten-4 right"
+            href="https://www.kth.se/social/course/DH2321/"
+            >More information</a
+          >
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -43,10 +43,10 @@
 }
 
 .buttons {
-    margin: 10px;
-    fill: none;
-    stroke: #000;
-    stroke-opacity: 0.2;
+  margin: 10px;
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.2;
 }
 
 .side-nav {
@@ -65,7 +65,8 @@
   margin-bottom: 0;
 }
 
-.promo i {
+.promo i,
+.icon {
   color: #004d40;
 }
 
@@ -82,6 +83,13 @@ body {
   line-height: 1.6;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 foreignObject {
@@ -103,12 +111,8 @@ blockquote {
   border-left: 5px solid #004d40 !important;
 }
 
-.col-3-card {
-  width: 29%;
-  height: 200px;
-  margin-left: 3.33333%;
-  left: auto;
-  right: auto;
+.card-panel {
+  margin-left: 6% !important;
 }
 
 #slide-out {
@@ -143,7 +147,7 @@ blockquote {
 
 .axis .title {
   font-size: 10px;
-  transform: rotate(-21deg) translate(-5px,-6px);
+  transform: rotate(-21deg) translate(-5px, -6px);
   fill: #222;
 }
 
@@ -162,11 +166,11 @@ blockquote {
 .axis.pl_facility .tick text,
 .axis.pl_instrument .tick text,
 .axis.st_spstr .tick text {
-  font-size: 6px; 
+  font-size: 6px;
 }
 
 .axis.pl_telescope .tick text {
-  font-size: 5px; 
+  font-size: 5px;
 }
 
 .axis:hover line,
@@ -196,7 +200,7 @@ blockquote {
 }
 
 .brush .extent {
-  fill-opacity: .3;
+  fill-opacity: 0.3;
   stroke: #fff;
   stroke-width: 1px;
 }
@@ -215,25 +219,29 @@ pre {
   color: #000;
 }
 /* label focus color */
-.input-field input[type=text]:focus + label {
+.input-field input[type="text"]:focus + label {
   color: #000;
 }
 /* label underline focus color */
-.input-field input[type=text]:focus {
+.input-field input[type="text"]:focus {
   border-bottom: 1px solid #000 !important;
   box-shadow: 0 0px 0 0 #fff !important;
 }
 /* valid color */
-.input-field input[type=text].valid {
+.input-field input[type="text"].valid {
   border-bottom: 1px solid #000;
   box-shadow: 0 0px 0 0 #000;
 }
 /* invalid color */
-.input-field input[type=text].invalid {
+.input-field input[type="text"].invalid {
   border-bottom: 1px solid red;
   box-shadow: 0 1px 0 0 red;
 }
 /* icon prefix focus color */
 .input-field .prefix.active {
   color: #000;
+}
+
+.page-footer {
+  background-color: #009688 !important;
 }
