@@ -224,7 +224,9 @@ d3.json("data/dataX.json", function (error, root) {
 });
 
 function switchData(d, isSearch = 0) {
-    console.log(d);
+    d3.select(".parcoords").remove();
+    d3.selectAll("pre").remove();
+
     //var basecolor = d3.select(this).style("fill"); //This is the object we clicked, save that color
     //console.log(basecolor);
     d3.select("#chart")
@@ -288,7 +290,6 @@ function switchData(d, isSearch = 0) {
         .on("mousemove", showTooltip)
         .on("mouseleave", hideTooltip)
         .on("click", function (d) {
-            d3.select(".parcoords").remove();
             d3.select("pre").remove();
             switchData(d);
             if (d.height == 0) {
