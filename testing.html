@@ -304,35 +304,6 @@
                                     return true;
                                 }
                             });
-
-                            // show ticks for active brush dimensions
-                            // and filter ticks to only those within brush extents
-                            /*
-                            svg.selectAll(".axis")
-                                .filter(function(d) {
-                                  return actives.indexOf(d) > -1 ? true : false;
-                                })
-                                .classed("active", true)
-                                .each(function(dimension, i) {
-                                  var extent = extents[i];
-                                  d3.select(this)
-                                    .selectAll(".tick text")
-                                    .style("display", function(d) {
-                                      var value = dimension.type.coerce(d);
-                                      return dimension.type.within(value, extent, dimension) ? null : "none";
-                                    });
-                                });
-
-                            // reset dimensions without active brushes
-                            svg.selectAll(".axis")
-                                .filter(function(d) {
-                                  return actives.indexOf(d) > -1 ? false : true;
-                                })
-                                .classed("active", false)
-                                .selectAll(".tick text")
-                                  .style("display", null);
-                            */
-
                             ctx.clearRect(0, 0, width, height);
                             ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
                             render(selected);
