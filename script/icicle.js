@@ -293,7 +293,7 @@ function switchData(d, isSearch = 0) {
             d3.select("pre").remove();
             switchData(d);
             if (d.height == 0) {
-                var margin = { top: 66, right: 110, bottom: 20, left: 188 },
+                var margin = { top: 66, right: 110, bottom: 20, left: 288 },
                     width = document.body.clientWidth - margin.left - margin.right,
                     height = 340 - margin.top - margin.bottom,
                     innerHeight = height - 2;
@@ -570,7 +570,7 @@ function switchData(d, isSearch = 0) {
 
                 function makeUrl(disease) {
                     // Grab title and trial name of diseases
-                    return "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=1000&fmt=csv";
+                    return "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv";
                 }
 
                 function makeDimensions() {
