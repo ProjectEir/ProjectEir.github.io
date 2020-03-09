@@ -47,27 +47,42 @@ var tooltip = d3
 var showTooltip = function (d) {
     console.log(d);
     tooltip.transition().duration(100);
+    // root
     if (d.height == 2) {
         tooltip
             .style("opacity", 1)
             .html("Root")
             .style("left", d3.mouse(this)[0] + 250 + "px")
             .style("top", d3.mouse(this)[1] + 100 + "px");
+        // category
     } else if (d.height == 1) {
+        percentage = Math.round(1000 * (sumChildren(d) / 2321192))/1000;
+        
         tooltip
             .style("opacity", 1)
-            .html("Category: " + d.data.key + "<br/>Number of diseases: " + d.children.length)
+            .html("Category: " + d.data.key + "<br/>Number of diseases: " + d.children.length + "<br/>Percentage of total trials: " + percentage)
             .style("left", d3.mouse(this)[0] + 250 + "px")
             .style("top", d3.mouse(this)[1] + 100 + "px");
     } else {
+        percentage = Math.round(10000 * (d.value / 2321192)) / 10000;
         tooltip
             .style("opacity", 1)
-            .html("Disease: " + d.data.key + "<br/>Number of trials: " + d.data.value)
+            .html("Disease: " + d.data.key + "<br/>Number of trials: " + d.data.value + "<br/>Percentage of total trials: " + percentage)
             .style("left", d3.mouse(this)[0] + 250 + "px")
             .style("top", d3.mouse(this)[1] + 100 + "px");
     }
     
 };
+
+function sumChildren(d) {
+    sum = 0;
+    console.log(d);
+    console.log(d.children);
+    for (i = 0; i < d.children.length; i++) {
+        sum += d.children[i].value;
+    }
+    return sum;
+}
 
 var moveTooltip = function (d) {
     tooltip
