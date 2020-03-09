@@ -45,7 +45,6 @@ var tooltip = d3
 
 // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
 var showTooltip = function (d) {
-    console.log(d);
     tooltip.transition().duration(100);
     // root
     if (d.height == 2) {
@@ -56,8 +55,8 @@ var showTooltip = function (d) {
             .style("top", d3.mouse(this)[1] + 100 + "px");
         // category
     } else if (d.height == 1) {
-        percentage = Math.round(1000 * (sumChildren(d) / 2321192))/1000;
-        
+        percentage = Math.round(1000 * (sumChildren(d) / 2321192)) / 1000;
+
         tooltip
             .style("opacity", 1)
             .html("Category: " + d.data.key + "<br/>Number of diseases: " + d.children.length + "<br/>Percentage of total trials: " + percentage)
@@ -71,13 +70,11 @@ var showTooltip = function (d) {
             .style("left", d3.mouse(this)[0] + 250 + "px")
             .style("top", d3.mouse(this)[1] + 100 + "px");
     }
-    
+
 };
 
 function sumChildren(d) {
     sum = 0;
-    console.log(d);
-    console.log(d.children);
     for (i = 0; i < d.children.length; i++) {
         sum += d.children[i].value;
     }
@@ -274,7 +271,12 @@ function switchData(d, isSearch = 0) {
         .select("#chart")
         .append("svg:svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", function (a) {
+            if (d.height == 0) {
+                return 40;
+            }
+            return height;
+        });
 
     var partition = d3
         .partition()
@@ -285,6 +287,7 @@ function switchData(d, isSearch = 0) {
     var rect = vis.selectAll("rect");
     var fo = vis.selectAll("foreignObject");
     var totalSize = 0;
+
 
     // -1- Create a tooltip div that is hidden by default:
     var tooltip = d3
@@ -299,6 +302,7 @@ function switchData(d, isSearch = 0) {
         .style("box-shadow", "10px 10px 28px 0px rgba(0,0,0,0.75)")
         .style("position", "absolute")
         .style("color", "black");
+
 
     //new rectangles
     rect = rect
@@ -576,7 +580,6 @@ function switchData(d, isSearch = 0) {
 
                     });
                 });
-                console.log("root");
                 // New
                 function d3_functor(v) {
                     return typeof v === "function" ? v : function () { return v; };
