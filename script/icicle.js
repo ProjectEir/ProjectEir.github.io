@@ -312,8 +312,9 @@ function switchData(d, isSearch = 0) {
         .attr("x", function (d) {
             return x(d.x0);
         })
-        .attr("y", function (d) {
-            return y(d.y0);
+        .attr("y", function (a) {
+            if (d.height == 1 && a.height == 0) { return y(a.y0) - (height/2 - 40);}
+            return y(a.y0);
         })
         .attr("width", function (d) {
             if (isSearch == 1212) { //called from search bar
@@ -326,8 +327,9 @@ function switchData(d, isSearch = 0) {
                 }
             }
         })
-        .attr("height", function (d) {
-            return y(d.y1) - y(d.y0);
+        .attr("height", function (a) {
+            if (d.height == 1 && a.height == 1) { return 40 }
+            return y(a.y1) - y(a.y0);
         })
         .attr("fill", function (d) {
             //same as the one you clicked on
