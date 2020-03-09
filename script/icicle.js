@@ -970,8 +970,30 @@ function switchData(d, isSearch = 0) {
 
                 function makeUrl(disease) {
                     // Grab title and trial name of diseases
-                    return "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv";
+                    url = "https://clinicaltrials.gov/api/query/study_fields?expr="
+                    dateFilter = document.getElementById("FilterbyDate");
+                    if (dateFilter.checked) {
+                        //year, month, day
+                        rangeStart = document.getElementById("rangeDateStart").value.split('-');
+                        rangeEnd = document.getElementById("rangeDateEnd").value.split('-');
+                        if (rangeStart == [""]) {
+                            url = url.concat("AREA%5BStartDate%5DRANGE%5BMIN%2C+");
+                        } else {
+                            url = url.concat("AREA%5BStartDate%5DRANGE%5B" + rangeStart[2] + "%2F" + rangeStart[1] + "%2F" + rangeStart[0] + "%2C+");
+                        };
+                        if (rangeEnd[0] == "") {
+                            url = url.concat("MAX" + "%5D");
+
+                        } else {
+                            url = url.concat(rangeEnd[2] + "%2F" + rangeEnd[1] + "%2F" + rangeEnd[0] + "%5D%0D%0A");
+                        };
+                    }
+
+                    url = url.concat(disease + "&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+                    console.log(url);
+                    return url;
                 }
+
 
                 function makeDimensions() {
                     dim = []

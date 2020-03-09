@@ -76,13 +76,44 @@
             <input type="checkbox" id="LastUpdatePostDate" value="LastUpdatePostDate" />
             <label for="LastUpdatePostDate"> Last Update Post Date </label><br />
             <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate"
-                value="OutcomeMeasureAnticipatedPostingDate" />
+                   value="OutcomeMeasureAnticipatedPostingDate" />
             <label for="OutcomeMeasureAnticipatedPostingDate">
-                Outcome Measure Anticipated Posting Date </label><br />
+                Outcome Measure Anticipated Posting Date
+            </label><br />
             <input type="checkbox" id="ResultsFirstPostDate" value="ResultsFirstPostDate" />
             <label for="ResultsFirstPostDate"> Results First Post Date </label><br />
             <input type="checkbox" id="ResultsFirstSubmitDate" value="ResultsFirstSubmitDate" />
             <label for="ResultsFirstSubmitDate"> Results First Submit Date </label><br />
+            <li>
+                <div class="divider"></div>
+            </li>
+            <input type="checkbox" id="FilterbyDate" value="FilterbyDate" onclick="showDate()" />
+            <label for="FilterbyDate"> Filter by Date </label><br />
+            <script>
+                function showDate() {
+                    checkBox = document.getElementById("FilterbyDate");
+                    rangeStart = document.getElementById("rangeDateStart");
+                    rangeEnd = document.getElementById("rangeDateEnd");
+                    rangeDateStartLabel = document.getElementById("rangeDateStartLabel");
+                    rangeDateEndLabel = document.getElementById("rangeDateEndLabel");
+                    if (checkBox.checked == true) {
+                        rangeStart.style.display = "block";
+                        rangeEnd.style.display = "block";
+                        rangeDateStartLabel.style.display = "block";
+                        rangeDateEndLabel.style.display = "block";
+                    } else {
+                        rangeStart.style.display = "none";
+                        rangeEnd.style.display = "none";
+                        rangeDateStartLabel.style.display = "none";
+                        rangeDateEndLabel.style.display = "none";
+                    }
+                }
+            </script>
+            <input type="date" id="rangeDateStart" value="rangeDateStart" style="display:none" />
+            <label for="rangeDateStart" id="rangeDateStartLabel" style="display:none"> Earliest Start Date </label><br />
+            <input type="date" id="rangeDateEnd" value="rangeDateEnd" style="display:none" />
+            <label for="rangeDateEnd" id="rangeDateEndLabel" style="display:none"> Latest Start Date </label><br />
+            <br />
         </div>
     </ul>
 
