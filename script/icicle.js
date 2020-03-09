@@ -170,7 +170,6 @@ d3.json("data/dataX.json", function (error, root) {
             .style("width", width + margin.right + "px")
             .style("margin-left", margin.left - 50 + "px");
 
-        console.log(d);
         selectedOption = d.data.key;
         format = selectedOption.split(" ").join("+");
         url = makeUrl(format);
@@ -533,7 +532,7 @@ d3.json("data/dataX.json", function (error, root) {
         .on("mouseleave", hideTooltip)
         .on("click", switchData);
 
-    div = div
+    /*div = div
         .data(root.descendants())
         .enter()
         .append("div")
@@ -558,7 +557,7 @@ d3.json("data/dataX.json", function (error, root) {
         })
         .attr("stroke", "white")
         .on("mouseover", showTooltip)
-        .on("mouseleave", hideTooltip);
+        .on("mouseleave", hideTooltip);*/
 
     fo = fo
         .data(root.descendants())
@@ -760,7 +759,6 @@ function switchData(d, isSearch = 0) {
                     .style("width", width + margin.right + "px")
                     .style("margin-left", margin.left - 50 + "px");
 
-                console.log(d);
                 selectedOption = d.data.key;
                 format = selectedOption.split(" ").join("+");
                 url = makeUrl(format);
