@@ -255,7 +255,15 @@ d3.json("data/dataX.json", function (error, root) {
                 d3.selectAll(".axis.Rank .tick text")
                     .style("fill", color);
 
-                output.text(d3.tsvFormat(data.slice(0, 24)));
+
+                //create a deep copy of the data
+                let filteredSelected = JSON.parse(JSON.stringify(data));
+                //slice the date data
+                filteredSelected = sliceDates(filteredSelected);
+                //print
+                output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                //clean copy just in case
+                filteredSelected = {};
 
                 function project(d) {
                     return dimensions.map(function (p, i) {
@@ -268,7 +276,21 @@ d3.json("data/dataX.json", function (error, root) {
                         return [xscale(i), p.scale(d[p.key])];
                     });
                 };
+                //slices the dates string to right size
+                function sliceDates(container) {
+                    for (j = 0; j < container.length; j++) {
+                        //set to 10 due to the date format yyyy-mm-dd
+                        if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
+                        if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
+                        if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
+                        if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
+                        if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
+                        if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
 
+                    }
+
+                    return container;
+                }
                 function draw(d) {
                     ctx.strokeStyle = color(d.pl_discmethod);
                     ctx.beginPath();
@@ -337,7 +359,16 @@ d3.json("data/dataX.json", function (error, root) {
                     ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
                     render(selected);
 
-                    output.text(d3.tsvFormat(selected.slice(0, 24)));
+
+                    //create a deep copy of the data
+                    let filteredSelected = JSON.parse(JSON.stringify(selected));
+                    //slice the date data
+                    filteredSelected = sliceDates(filteredSelected);
+                    //print
+                    output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                    //clean copy just in case
+                    filteredSelected = {};
+
                 }
 
             });
@@ -844,7 +875,16 @@ function switchData(d, isSearch = 0) {
                         d3.selectAll(".axis.Rank .tick text")
                             .style("fill", color);
 
-                        output.text(d3.tsvFormat(data.slice(0, 24)));
+
+                        //create a deep copy of the data
+                        let filteredSelected = JSON.parse(JSON.stringify(data));
+                        //slice the date data
+                        filteredSelected = sliceDates(filteredSelected);
+                        //print
+                        output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                        //clean copy just in case
+                        filteredSelected = {};
+
 
                         function project(d) {
                             return dimensions.map(function (p, i) {
@@ -857,6 +897,21 @@ function switchData(d, isSearch = 0) {
                                 return [xscale(i), p.scale(d[p.key])];
                             });
                         };
+                        //slices the dates string to right size
+                        function sliceDates(container) {
+                            for (j = 0; j < container.length; j++) {
+                                //set to 10 due to the date format yyyy-mm-dd
+                                if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
+                                if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
+                                if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
+                                if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
+                                if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
+                                if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
+
+                            }
+
+                            return container;
+                        }
 
                         function draw(d) {
                             ctx.strokeStyle = color(d.pl_discmethod);
@@ -926,7 +981,15 @@ function switchData(d, isSearch = 0) {
                             ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
                             render(selected);
 
-                            output.text(d3.tsvFormat(selected.slice(0, 24)));
+                            //create a deep copy of the data
+                            let filteredSelected = JSON.parse(JSON.stringify(selected));
+                            //slice the date data
+                            filteredSelected = sliceDates(filteredSelected);
+                            //print
+                            output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                            //clean copy just in case
+                            filteredSelected = {};
+
                         }
 
                     });
@@ -1246,4 +1309,5 @@ function updateBreadcrumbs(nodeArray, valueString) {
             }
         });
     }
+
 }
