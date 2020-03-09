@@ -32,7 +32,7 @@ var b = {
 
 // -1- Create a tooltip div that is hidden by default:
 var tooltip = d3
-    .select("#my_dataviz")
+    .select("#chart")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -49,14 +49,14 @@ var showTooltip = function (d) {
     tooltip.transition().duration(200);
     tooltip
         .style("opacity", 1)
-        .html("Country: " + d.Country + "<br/>Continent: " + d.Continent)
-        .style("left", d3.mouse(this)[0] - 30 + "px")
+        .html("Disease: " + d.disease + "<br/>Number of trials: " + d.size)
+        .style("left", d3.mouse(this)[0] + "px")
         .style("top", d3.mouse(this)[1] + 100 + "px");
 };
 
 var moveTooltip = function (d) {
     tooltip
-        .style("left", d3.mouse(this)[0] - 30 + "px")
+        .style("left", d3.mouse(this)[0] + "px")
         .style("top", d3.mouse(this)[1] + 100 + "px");
 };
 
