@@ -30,19 +30,18 @@ var b = {
     t: 10
 };
 
-// -1- Create a tooltip div that is hidden by default:
-//var tooltip = d3
-//    .select("#chart")
-//    .append("div")
-//    .style("opacity", 0)
-//    .attr("class", "tooltip")
-//    .style("font-family", "Poppins")
-//    .style("padding", "10px")
-//    .style("border-radius", "5px")
-//    .style("background-color", "WhiteSmoke")
-//    .style("box-shadow", "10px 10px 28px 0px rgba(0,0,0,0.75)")
-//    .style("position", "absolute")
-//    .style("color", "black");
+var tooltip = d3
+    .select("#chart")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("font-family", "Poppins")
+    .style("padding", "10px")
+    .style("border-radius", "5px")
+    .style("background-color", "WhiteSmoke")
+    .style("box-shadow", "10px 10px 28px 0px rgba(0,0,0,0.75)")
+    .style("position", "absolute")
+    .style("color", "black");
 
 // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
 var showTooltip = function (d) {
