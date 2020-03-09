@@ -408,7 +408,9 @@ function switchData(d, isSearch = 0) {
                 ctx.lineWidth = 1.5;
                 ctx.scale(devicePixelRatio, devicePixelRatio);
 
-                var output = d3.select("body").append("pre");
+                var output = d3.select("body").append("pre")
+                .style("width", width + margin.right + "px")
+                .style("margin-left", margin.left-50 + "px");
 
                 selectedOption = d.data.key;
                 format = selectedOption.split(" ").join("+");
