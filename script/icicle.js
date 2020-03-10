@@ -1271,7 +1271,7 @@ function updateBreadcrumbs(nodeArray, valueString) {
         .attr("y", b.h / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
-        .text("Total number of trails " + valueString);
+        .text("Total number of trials " + valueString);
 
     function wrap(text, width) {
         text.each(function () {
