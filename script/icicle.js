@@ -1031,28 +1031,55 @@ function switchData(d, isSearch = 0) {
                     return newlines;
                 };
 
+                /*
+                 * Make Url
+                 * Take query and URL it:
+                 * "Expression: AREA[Condition]Abscess AND AREA[StartDate]RANGE[01/01/2015, MAX] AND AREA[Gender]Female AND AREA[StdAge](Child OR Adult)"
+                 *      all ' ' -> +
+                 *      all ',' -> %2C
+                 *      all '[' -> %5B ; all ']' -> %5D
+                 *      all '(' -> %28 ; all ')' ->
+                 *      all '/' -> %2F
+                 */
                 function makeUrl(disease) {
                     // Grab title and trial name of diseases
                     url = "https://clinicaltrials.gov/api/query/study_fields?expr="
+                    query = "AREA[Condition]" + disease;
+
+                    // Check for date
                     dateFilter = document.getElementById("FilterbyDate");
                     if (dateFilter.checked) {
+                        query = query.concat(" AND AREA[StartDate]RANGE[");
                         //year, month, day
                         rangeStart = document.getElementById("rangeDateStart").value.split('-');
                         rangeEnd = document.getElementById("rangeDateEnd").value.split('-');
                         if (rangeStart == [""]) {
-                            url = url.concat("AREA%5BStartDate%5DRANGE%5BMIN%2C+");
+                            query = query.concat("MIN, ");
                         } else {
-                            url = url.concat("AREA%5BStartDate%5DRANGE%5B" + rangeStart[2] + "%2F" + rangeStart[1] + "%2F" + rangeStart[0] + "%2C+");
+                            query = query.concat(rangeStart[2] + "/" + rangeStart[1] + "/" + rangeStart[0] + ", ");
                         };
                         if (rangeEnd[0] == "") {
-                            url = url.concat("MAX" + "%5D");
+                            query = query.concat("MAX]");
 
                         } else {
-                            url = url.concat(rangeEnd[2] + "%2F" + rangeEnd[1] + "%2F" + rangeEnd[0] + "%5D%0D%0A");
+                            query = query.concat(rangeEnd[2] + "/" + rangeEnd[1] + "/" + rangeEnd[0] + "]");
                         };
                     }
 
-                    url = url.concat(disease + "&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+                    // Swap out special characters
+                    for (i = 0; i < query.length; i++) {
+                        char = query[i];
+                        if (char == ' ') { url = url.concat("+"); }
+                        else if (char == ',') { url = url.concat("%2C"); }
+                        else if (char == '[') { url = url.concat("%5B"); }
+                        else if (char == ']') { url = url.concat("%5D"); }
+                        else if (char == '(') { url = url.concat("%28"); }
+                        else if (char == ')') { url = url.concat("%29"); }
+                        else if (char == '/') { url = url.concat("%2F"); }
+                        else { url = url.concat(char); }
+                    }
+
+                    url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
                     console.log(url);
                     return url;
                 }

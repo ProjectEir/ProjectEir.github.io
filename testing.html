@@ -35,6 +35,12 @@
     - LastUpdatePostDate-----------------------------------X
     - OutcomeMeasureAnticipatedPostingDate----------------X
     - ResultsFirstPostDate, ResultsFirstSubmitDate--------X
+    - Maximum Age, Minimum Age
+    - OverallStatus
+    - StudyType - Observational vs Interventional
+    - StdAge - Child, Adult, Older Adult
+    - NCTId - code for url
+    - Gender (Male, Female, All)
 
     TOGGLEABLE FIELDS VIEWABLE IN SUMMARY
     - Brief Summary
@@ -46,6 +52,7 @@
     - Sampling Method
     - SeeAlsoLinkURL
     - StudyPopulation
+    - EligibilityCriteria
  -->
 
 <script>
@@ -100,6 +107,34 @@
         }
     };
 
+    /*
+                 * Make Url
+                 * Take query and URL it:
+                 * "Expression: AREA[Condition]Abscess AND AREA[StartDate]RANGE[01/01/2015, MAX] AND AREA[Gender]Female AND AREA[StdAge](Child OR Adult)"
+                 *      all ' ' -> +
+                 *      all ',' -> %2C
+                 *      all '[' -> %5B ; all ']' -> %5D
+                 *      all '(' -> %28 ; all ')' ->
+                 *      all '/' -> %2F
+                 */
+    function newUrl() {
+        query = "AREA[Condition]Abscess AND AREA[StartDate]RANGE[01/01/2015, MAX] AND AREA[Gender]Female AND AREA[StdAge](Child OR Adult)";
+        url = "https://clinicaltrials.gov/api/query/study_fields?expr="
+        for (i = 0; i < query.length; i++) {
+            char = query[i];
+            if (char == ' ') { url = url.concat("+"); }
+            else if (char == ',') { url = url.concat("%2C"); }
+            else if (char == '[') { url = url.concat("%5B"); }
+            else if (char == ']') { url = url.concat("%5D"); }
+            else if (char == '(') { url = url.concat("%28"); }
+            else if (char == ')') { url = url.concat("%29"); }
+            else if (char == '/') { url = url.concat("%2F"); }
+            else { url = url.concat(char);}
+        }
+        url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+        console.log(url);
+    }
+
     // New
     var yAxis = d3.axisLeft();
 
@@ -144,10 +179,10 @@
                     myDimensions = makeDimensions();
                     // use d3.csvParse(myData){...}
                     // see https://stackoverflow.com/questions/42285441/how-to-read-in-csv-with-d3-v4
-//                    console.log(types, "check1");
+                    //                    console.log(types, "check1");
                     dimensions = myDimensions;
-//                    console.log(dimensions, "check2");
-//                    console.log(yAxis, "check3");
+                    //                    console.log(dimensions, "check2");
+                    //                    console.log(yAxis, "check3");
 
                     var xscale = d3.scalePoint()
                         .domain(d3.range(dimensions.length))
@@ -159,8 +194,8 @@
                         .attr("class", function (d) { return "axis " + d.key.replace(/ /g, "_"); })
                         .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
 
-//                    console.log(axes, "check4");
-//                    console.log(d3_functor, "check5");
+                    //                    console.log(axes, "check4");
+                    //                    console.log(d3_functor, "check5");
 
                     d3.csvParse(myData, function (error, data) {
                         data = d3.csvParse(myData);
