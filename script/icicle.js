@@ -103,6 +103,49 @@ d3.json("data/dataX.json", function (error, root) {
 
     function parallelcoordinatesBySearch(d) {
 
+        //add loading
+        $("#loading").html('<center><div class="preloader-wrapper big active">'
+        +'<div class="spinner-layer spinner-blue">'
+          +'<div class="circle-clipper left">'
+            +'<div class="circle"></div>'
+          +'</div><div class="gap-patch">'
+            +'<div class="circle"></div>'
+          +'</div><div class="circle-clipper right">'
+            +'<div class="circle"></div>'
+          +'</div>'
+        +'</div>'
+  
+        +'<div class="spinner-layer spinner-red">'
+          +'<div class="circle-clipper left">'
+            +'<div class="circle"></div>'
+          +'</div><div class="gap-patch">'
+            +'<div class="circle"></div>'
+          +'</div><div class="circle-clipper right">'
+            +'<div class="circle"></div>'
+          +'</div>'
+        +'</div>'
+  
+        +'<div class="spinner-layer spinner-yellow">'
+          +'<div class="circle-clipper left">'
+            +'<div class="circle"></div>'
+          +'</div><div class="gap-patch">'
+            +'<div class="circle"></div>'
+          +'</div><div class="circle-clipper right">'
+            +'<div class="circle"></div>'
+          +'</div>'
+        +'</div>'
+  
+        +'<div class="spinner-layer spinner-green">'
+          +'<div class="circle-clipper left">'
+            +'<div class="circle"></div>'
+          +'</div><div class="gap-patch">'
+            +'<div class="circle"></div>'
+          +'</div><div class="circle-clipper right">'
+            +'<div class="circle"></div>'
+          +'</div>'
+        +'</div>'
+      +'</div></center>');
+
         var margin = { top: 66, right: 110, bottom: 20, left: 288 },
             width = document.body.clientWidth - margin.left - margin.right,
             height = 340 - margin.top - margin.bottom,
@@ -474,6 +517,8 @@ d3.json("data/dataX.json", function (error, root) {
                     type: types["Date"]
                 });
             }
+
+            $("#loading").html("");
 
             return dim;
         }
