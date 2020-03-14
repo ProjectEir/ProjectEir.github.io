@@ -1046,7 +1046,7 @@ function switchData(d, isSearch = 0) {
                     url = "https://clinicaltrials.gov/api/query/study_fields?expr="
                     query = "AREA[Condition]" + disease;
 
-                    // Check for Start Date
+                    // Check for Start Date - Done
                     dateFilter = document.getElementById("FilterbyDate");
                     if (dateFilter.checked) {
                         query = query.concat(" AND AREA[StartDate]RANGE[");
@@ -1066,14 +1066,46 @@ function switchData(d, isSearch = 0) {
                         };
                     }
 
-                    // Check for Status - This should be a dimension
+                    // Check for Enrollment Count - Done
+                    enrollmentFilter = document.getElementById("FilterbyEnrollment");
+                    if (enrollmentFilter.checked) {
+                        query = query.concat(" AND AREA[EnrollmentCount]RANGE[");
+                        
+                        minEnrollment = document.getElementById("minEnrollment").value;
+                        maxEnrollment = document.getElementById("maxEnrollment").value;
+                        if (minEnrollment == "") {
+                            query = query.concat("MIN, ");
+                        } else {
+                            query = query.concat(minEnrollment + ", ");
+                        };
+                        if (maxEnrollment == "") {
+                            query = query.concat("MAX]");
+
+                        } else {
+                            query = query.concat(maxEnrollment + "]");
+                        };
+                    }
 
                     // Check for Age Group - Done
+                    ageValue = document.getElementById("age").value
+                    if (ageValue != "") {
+                        query = query.concat(" AND AREA[StdAge]");
+                        if (ageValue == "child") { query = query.concat("Child"); }
+                        if (ageValue == "childadult") { query = query.concat("(Child OR Adult)"); }
+                        if (ageValue == "adult") { query = query.concat("Adult"); }
+                        if (ageValue == "adultold") { query = query.concat("(Adult OR Older Adult)"); }
+                        if (ageValue == "old") { query = query.concat("Older Adult"); }
+                    }
 
                     // Check for Gender - Done
-
-                    // Check for Enrollment Count
-
+                    genderValue = document.getElementById("gender").value
+                    if (genderValue != "") {
+                        query = query.concat(" AND AREA[Gender]");
+                        if (genderValue == "female") { query = query.concat("(Female OR All)"); }
+                        if (genderValue == "male") { query = query.concat("(Male OR All)"); }
+                        if (genderValue == "onlyfemale") { query = query.concat("Female"); }
+                        if (genderValue == "onlymale") { query = query.concat("Male"); }
+                    }
                     // Swap out special characters
                     for (i = 0; i < query.length; i++) {
                         char = query[i];
