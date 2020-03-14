@@ -727,9 +727,51 @@ function switchData(d, isSearch = 0) {
 
         if (d.height == 0) {
 
+            //add loading
+            $("#loading").html('<center><div class="preloader-wrapper big active">'
+            +'<div class="spinner-layer spinner-blue">'
+              +'<div class="circle-clipper left">'
+                +'<div class="circle"></div>'
+              +'</div><div class="gap-patch">'
+                +'<div class="circle"></div>'
+              +'</div><div class="circle-clipper right">'
+                +'<div class="circle"></div>'
+              +'</div>'
+            +'</div>'
+      
+            +'<div class="spinner-layer spinner-red">'
+              +'<div class="circle-clipper left">'
+                +'<div class="circle"></div>'
+              +'</div><div class="gap-patch">'
+                +'<div class="circle"></div>'
+              +'</div><div class="circle-clipper right">'
+                +'<div class="circle"></div>'
+              +'</div>'
+            +'</div>'
+      
+            +'<div class="spinner-layer spinner-yellow">'
+              +'<div class="circle-clipper left">'
+                +'<div class="circle"></div>'
+              +'</div><div class="gap-patch">'
+                +'<div class="circle"></div>'
+              +'</div><div class="circle-clipper right">'
+                +'<div class="circle"></div>'
+              +'</div>'
+            +'</div>'
+      
+            +'<div class="spinner-layer spinner-green">'
+              +'<div class="circle-clipper left">'
+                +'<div class="circle"></div>'
+              +'</div><div class="gap-patch">'
+                +'<div class="circle"></div>'
+              +'</div><div class="circle-clipper right">'
+                +'<div class="circle"></div>'
+              +'</div>'
+            +'</div>'
+          +'</div></center>');
+
             //add refresh of parcoord when information changed
             $(".refresh").click(function () {
-                console.log(d);
                 d3.select("pre").remove();
                 switchData(d);
                 parcoords(d);
@@ -1132,7 +1174,7 @@ function switchData(d, isSearch = 0) {
                 }
                 // Check for number of trials
                 url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
-                console.log(url);
+                //console.log(url);
                 return url;
             }
 
@@ -1196,6 +1238,8 @@ function switchData(d, isSearch = 0) {
                         type: types["Date"]
                     });
                 }
+
+                $("#loading").html("");
 
                 return dim;
             }
