@@ -304,7 +304,7 @@ d3.json("data/dataX.json", function (error, root) {
                 //slice the date data
                 filteredSelected = sliceDates(filteredSelected);
                 //print
-                output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
                 //clean copy just in case
                 filteredSelected = {};
 
@@ -408,7 +408,7 @@ d3.json("data/dataX.json", function (error, root) {
                     //slice the date data
                     filteredSelected = sliceDates(filteredSelected);
                     //print
-                    output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                    output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
                     //clean copy just in case
                     filteredSelected = {};
 
@@ -980,7 +980,7 @@ function switchData(d, isSearch = 0) {
                     //slice the date data
                     filteredSelected = sliceDates(filteredSelected);
                     //print
-                    output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                    output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
                     //clean copy just in case
                     filteredSelected = {};
 
@@ -1085,7 +1085,7 @@ function switchData(d, isSearch = 0) {
                         //slice the date data
                         filteredSelected = sliceDates(filteredSelected);
                         //print
-                        output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, 24)));
+                        output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
                         //clean copy just in case
                         filteredSelected = {};
 
