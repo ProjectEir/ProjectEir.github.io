@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
@@ -46,7 +46,7 @@
         </nav>
     </div>
 
-    <ul id="slide-out" class="side-nav fixed">
+    <ul id="slide-out" class="side-nav fixed" style="left:210px;">
         <div class="row">
             <div class="input-field col s12">
                 <input id="search_disease" type="text" class="validate" list="diseases" />
@@ -59,14 +59,17 @@
             <div class="divider"></div>
         </li>
         <!--
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Second Filter</a></li>
-      -->
+          <li><a class="subheader">Subheader</a></li>
+          <li><a class="waves-effect" href="#!">Second Filter</a></li>
+        -->
 
         <div id="buttons" style="margin: 10px;">
-            <p>Select Desired Info</p>
+            <!-- PARALLEL COORDINATE AXES -->
+            <p>Parallel Coordinate Axes</p>
             <input type="checkbox" id="Phase" value="Phase" checked="checked" />
             <label for="Phase"> Phase </label><br />
+            <input type="checkbox" id="Status" value="Status" />
+            <label for="Status"> Status (needs Implementing) </label><br />
             <input type="checkbox" id="EnrollmentCount" value="EnrollmentCount" checked="checked" />
             <label for="EnrollmentCount"> Enrollment Count </label><br />
             <input type="checkbox" id="StartDate" value="StartDate" checked="checked" />
@@ -87,6 +90,9 @@
             <li>
                 <div class="divider"></div>
             </li>
+
+            <!-- QUERY FILTERS -->
+            <p> Filters </p>
             <input type="checkbox" id="FilterbyDate" value="FilterbyDate" onclick="showDate()" />
             <label for="FilterbyDate"> Filter by Date </label><br />
             <script>
@@ -109,11 +115,63 @@
                     }
                 }
             </script>
+            <label for="rangeDateStart" id="rangeDateStartLabel" style="display:none"> Earliest Start Date </label>
             <input type="date" id="rangeDateStart" value="rangeDateStart" style="display:none" />
-            <label for="rangeDateStart" id="rangeDateStartLabel" style="display:none"> Earliest Start Date </label><br />
+            <label for="rangeDateEnd" id="rangeDateEndLabel" style="display:none"> Latest Start Date </label>
             <input type="date" id="rangeDateEnd" value="rangeDateEnd" style="display:none" />
-            <label for="rangeDateEnd" id="rangeDateEndLabel" style="display:none"> Latest Start Date </label><br />
-            <br />
+
+
+            <input type="checkbox" id="FilterbyEnrollment" value="FilterbyEnrollment" onclick="showEnrollment()" />
+            <label for="FilterbyEnrollment"> Filter by # Enrolled </label><br />
+            <script>
+                function showEnrollment() {
+                    checkBox2 = document.getElementById("FilterbyEnrollment");
+                    minEnrollment = document.getElementById("minEnrollment");
+                    maxEnrollment = document.getElementById("maxEnrollment");
+                    minEnrollmentLabel = document.getElementById("minEnrollmentLabel");
+                    maxEnrollmentLabel = document.getElementById("maxEnrollmentLabel");
+                    if (checkBox2.checked == true) {
+                        minEnrollment.style.display = "block";
+                        maxEnrollment.style.display = "block";
+                        minEnrollmentLabel.style.display = "block";
+                        maxEnrollmentLabel.style.display = "block";
+                    } else {
+                        minEnrollment.style.display = "none";
+                        maxEnrollment.style.display = "none";
+                        minEnrollmentLabel.style.display = "none";
+                        maxEnrollmentLabel.style.display = "none";
+                    }
+                }
+            </script>
+            <input type="number" id="minEnrollment" value="minEnrollment" style="display:none" />
+            <label for="minEnrollment" id="minEnrollmentLabel" style="display:none"> Minimum Enrolled </label><br />
+            <input type="number" id="maxEnrollment" value="maxEnrollment" style="display:none" />
+            <label for="maxEnrollment" id="maxEnrollmentLabel" style="display:none"> Maximum Enrolled </label>
+
+            <label for="age">Age Group (years)</label>
+            <select id="age" style="display:block;">
+                <option value="">All</option>
+                <option value="child">Child (0-17)</option>
+                <option value="childadult">Child & Adult (0-64)</option>
+                <option value="adult">Adult (18-64)</option>
+                <option value="adultold">Adult & Older Adult (18+)</option>
+                <option value="old">Older Adult (65+)</option>
+            </select>
+
+            <label for="gender">Gender</label>
+            <select id="gender" style="display:block;">
+                <option value="">All</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="onlyfemale">Only Females</option>
+                <option value="onlymale">Only Males</option>
+            </select>
+
+            <br /><br />
+            <li>
+                <div class="divider"></div>
+            </li>
+
         </div>
     </ul>
 

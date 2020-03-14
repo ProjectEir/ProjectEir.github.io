@@ -1046,7 +1046,7 @@ function switchData(d, isSearch = 0) {
                     url = "https://clinicaltrials.gov/api/query/study_fields?expr="
                     query = "AREA[Condition]" + disease;
 
-                    // Check for date
+                    // Check for Start Date
                     dateFilter = document.getElementById("FilterbyDate");
                     if (dateFilter.checked) {
                         query = query.concat(" AND AREA[StartDate]RANGE[");
@@ -1066,6 +1066,14 @@ function switchData(d, isSearch = 0) {
                         };
                     }
 
+                    // Check for Status - This should be a dimension
+
+                    // Check for Age Group - Done
+
+                    // Check for Gender - Done
+
+                    // Check for Enrollment Count
+
                     // Swap out special characters
                     for (i = 0; i < query.length; i++) {
                         char = query[i];
@@ -1078,7 +1086,7 @@ function switchData(d, isSearch = 0) {
                         else if (char == '/') { url = url.concat("%2F"); }
                         else { url = url.concat(char); }
                     }
-
+                    // Check for number of trials
                     url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
                     console.log(url);
                     return url;
