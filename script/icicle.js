@@ -102,309 +102,213 @@ d3.json("data/dataX.json", function (error, root) {
     if (error) throw error;
 
     function parallelcoordinatesBySearch(d) {
+        if (d.height == 0) {
 
-        //add loading
-        $("#loading").html('<center><div class="preloader-wrapper big active">'
-        +'<div class="spinner-layer spinner-blue">'
-          +'<div class="circle-clipper left">'
-            +'<div class="circle"></div>'
-          +'</div><div class="gap-patch">'
-            +'<div class="circle"></div>'
-          +'</div><div class="circle-clipper right">'
-            +'<div class="circle"></div>'
-          +'</div>'
-        +'</div>'
-  
-        +'<div class="spinner-layer spinner-red">'
-          +'<div class="circle-clipper left">'
-            +'<div class="circle"></div>'
-          +'</div><div class="gap-patch">'
-            +'<div class="circle"></div>'
-          +'</div><div class="circle-clipper right">'
-            +'<div class="circle"></div>'
-          +'</div>'
-        +'</div>'
-  
-        +'<div class="spinner-layer spinner-yellow">'
-          +'<div class="circle-clipper left">'
-            +'<div class="circle"></div>'
-          +'</div><div class="gap-patch">'
-            +'<div class="circle"></div>'
-          +'</div><div class="circle-clipper right">'
-            +'<div class="circle"></div>'
-          +'</div>'
-        +'</div>'
-  
-        +'<div class="spinner-layer spinner-green">'
-          +'<div class="circle-clipper left">'
-            +'<div class="circle"></div>'
-          +'</div><div class="gap-patch">'
-            +'<div class="circle"></div>'
-          +'</div><div class="circle-clipper right">'
-            +'<div class="circle"></div>'
-          +'</div>'
-        +'</div>'
-      +'</div></center>');
+            //add loading
+            $("#loading").html('<center><div class="preloader-wrapper big active">'
+                + '<div class="spinner-layer spinner-blue">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
 
-        var margin = { top: 66, right: 110, bottom: 20, left: 288 },
-            width = document.body.clientWidth - margin.left - margin.right,
-            height = 340 - margin.top - margin.bottom,
-            innerHeight = height - 2;
+                + '<div class="spinner-layer spinner-red">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
 
-        var devicePixelRatio = window.devicePixelRatio || 1;
+                + '<div class="spinner-layer spinner-yellow">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
 
-        var color = d3.scaleOrdinal()
-            .domain(["Radial Velocity", "Imaging", "Eclipse Timing Variations", "Astrometry", "Microlensing", "Orbital Brightness Modulation", "Pulsar Timing", "Pulsation Timing Variations", "Transit", "Transit Timing Variations"])
-            .range(["#DB7F85", "#50AB84", "#4C6C86", "#C47DCB", "#B59248", "#DD6CA7", "#E15E5A", "#5DA5B3", "#725D82", "#54AF52", "#954D56", "#8C92E8", "#D8597D", "#AB9C27", "#D67D4B", "#D58323", "#BA89AD", "#357468", "#8F86C2", "#7D9E33", "#517C3F", "#9D5130", "#5E9ACF", "#776327", "#944F7E"]);
+                + '<div class="spinner-layer spinner-green">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
+                + '</div></center>');
 
-        var types = {
-            "Number": {
-                key: "Number",
-                coerce: function (d) { return +d; },
-                extent: d3.extent,
-                within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-                defaultScale: d3.scaleLinear().range([innerHeight, 0])
-            },
-            "String": {
-                key: "String",
-                coerce: String,
-                extent: function (data) { return data.sort(); },
-                within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-                defaultScale: d3.scalePoint().range([0, innerHeight])
-            },
-            "Date": {
-                key: "Date",
-                coerce: function (d) { return new Date(d); },
-                extent: d3.extent,
-                within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-                defaultScale: d3.scaleTime().range([innerHeight, 0])
-            }
-        };
+            //add refresh of parcoord when information changed
+            $(".refresh").click(function () {
+                d3.select("pre").remove();
+                switchData(d, 1212);
+                parallelcoordinatesBySearch(d);
+            });
 
-        // New
-        var yAxis = d3.axisLeft();
+            var margin = { top: 66, right: 110, bottom: 20, left: 288 },
+                width = document.body.clientWidth - margin.left - margin.right,
+                height = 340 - margin.top - margin.bottom,
+                innerHeight = height - 2;
 
-        var container = d3.select("body").append("div")
-            .attr("class", "parcoords")
-            .style("width", width + margin.left + margin.right + "px")
-            .style("height", height + margin.top + margin.bottom + "px");
+            var devicePixelRatio = window.devicePixelRatio || 1;
 
-        var svg = container.append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var color = d3.scaleOrdinal()
+                .domain(["Radial Velocity", "Imaging", "Eclipse Timing Variations", "Astrometry", "Microlensing", "Orbital Brightness Modulation", "Pulsar Timing", "Pulsation Timing Variations", "Transit", "Transit Timing Variations"])
+                .range(["#DB7F85", "#50AB84", "#4C6C86", "#C47DCB", "#B59248", "#DD6CA7", "#E15E5A", "#5DA5B3", "#725D82", "#54AF52", "#954D56", "#8C92E8", "#D8597D", "#AB9C27", "#D67D4B", "#D58323", "#BA89AD", "#357468", "#8F86C2", "#7D9E33", "#517C3F", "#9D5130", "#5E9ACF", "#776327", "#944F7E"]);
 
-        var canvas = container.append("canvas")
-            .attr("width", width * devicePixelRatio)
-            .attr("height", height * devicePixelRatio)
-            .style("width", width + "px")
-            .style("height", height + "px")
-            .style("margin-top", margin.top + "px")
-            .style("margin-left", margin.left + "px");
-
-        var ctx = canvas.node().getContext("2d");
-        ctx.globalCompositeOperation = 'darken';
-        ctx.globalAlpha = 0.15;
-        ctx.lineWidth = 1.5;
-        ctx.scale(devicePixelRatio, devicePixelRatio);
-
-        var output = d3.select("body").append("pre")
-            .style("width", width + margin.right + "px")
-            .style("margin-left", margin.left - 50 + "px");
-
-        selectedOption = d.data.key;
-        format = selectedOption.split(" ").join("+");
-        url = makeUrl(format);
-        ajax(url).then(function (result) {
-            // Here we can build the parallel coordinate system
-            myData = trim(result);
-            myDimensions = makeDimensions();
-            // use d3.csvParse(myData){...}
-            // see https://stackoverflow.com/questions/42285441/how-to-read-in-csv-with-d3-v4
-            //                    console.log(types, "check1");
-            dimensions = myDimensions;
-
-            var xscale = d3.scalePoint()
-                .domain(d3.range(dimensions.length))
-                .range([0, width]);
-
-            var axes = svg.selectAll(".axis")
-                .data(dimensions)
-                .enter().append("g")
-                .attr("class", function (d) { return "axis " + d.key.replace(/ /g, "_"); })
-                .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
-
-            d3.csvParse(myData, function (error, data) {
-                data = d3.csvParse(myData);
-
-                data.forEach(function (d) {
-                    dimensions.forEach(function (p) {
-                        d[p.key] = !d[p.key] ? null : p.type.coerce(d[p.key]);
-                    });
-
-                    // truncate long text strings to fit in data table
-                    for (var key in d) {
-                        if (d[key] && d[key].length > 35) d[key] = d[key].slice(0, 36);
-                    }
-                });
-
-                // type/dimension default setting happens here
-                dimensions.forEach(function (dim) {
-                    if (!("domain" in dim)) {
-                        // detect domain using dimension type's extent function
-                        dim.domain = d3_functor(dim.type.extent)(data.map(function (d) { return d[dim.key]; }));
-                    }
-                    if (!("scale" in dim)) {
-                        // use type's default scale for dimension
-                        dim.scale = dim.type.defaultScale.copy();
-                    }
-                    dim.scale.domain(dim.domain);
-                });
-
-                var render = renderQueue(draw).rate(30);
-
-                ctx.clearRect(0, 0, width, height);
-                ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);
-                render(data);
-
-                axes.append("g")
-                    .each(function (d) {
-                        var renderAxis = "axis" in d
-                            ? d.axis.scale(d.scale)  // custom axis
-                            : yAxis.scale(d.scale);  // default axis
-                        d3.select(this).call(renderAxis);
-                    })
-                    .append("text")
-                    .attr("class", "title")
-                    .attr("text-anchor", "start")
-                    .text(function (d) { return "description" in d ? d.description : d.key; });
-
-                // Add and store a brush for each axis.
-                axes.append("g")
-                    .attr("class", "brush")
-                    .each(function (d) {
-                        d3.select(this).call(d.brush = d3.brushY()
-                            .extent([[-10, 0], [10, height]])
-                            .on("start", brushstart)
-                            .on("brush", brush)
-                            .on("end", brush)
-                        )
-                    })
-                    .selectAll("rect")
-                    .attr("x", -8)
-                    .attr("width", 16);
-
-                d3.selectAll(".axis.Rank .tick text")
-                    .style("fill", color);
-
-
-                //create a deep copy of the data
-                let filteredSelected = JSON.parse(JSON.stringify(data));
-                //slice the date data
-                filteredSelected = sliceDates(filteredSelected);
-                //print
-                output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
-                //clean copy just in case
-                filteredSelected = {};
-
-                function project(d) {
-                    return dimensions.map(function (p, i) {
-                        // check if data element has property and contains a value
-                        if (
-                            !(p.key in d) ||
-                            d[p.key] === null
-                        ) return null;
-
-                        return [xscale(i), p.scale(d[p.key])];
-                    });
-                };
-                //slices the dates string to right size
-                function sliceDates(container) {
-                    for (j = 0; j < container.length; j++) {
-                        //set to 10 due to the date format yyyy-mm-dd
-                        if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
-                        if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
-                        if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
-                        if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
-                        if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
-                        if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
-
-                    }
-
-                    return container;
+            var types = {
+                "Number": {
+                    key: "Number",
+                    coerce: function (d) { return +d; },
+                    extent: d3.extent,
+                    within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
+                    defaultScale: d3.scaleLinear().range([innerHeight, 0])
+                },
+                "String": {
+                    key: "String",
+                    coerce: String,
+                    extent: function (data) { return data.sort(); },
+                    within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
+                    defaultScale: d3.scalePoint().range([0, innerHeight])
+                },
+                "Date": {
+                    key: "Date",
+                    coerce: function (d) { return new Date(d); },
+                    extent: d3.extent,
+                    within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
+                    defaultScale: d3.scaleTime().range([innerHeight, 0])
                 }
-                function draw(d) {
-                    ctx.strokeStyle = color(d.pl_discmethod);
-                    ctx.beginPath();
-                    var coords = project(d);
-                    coords.forEach(function (p, i) {
-                        // this tricky bit avoids rendering null values as 0
-                        if (p === null) {
-                            // this bit renders horizontal lines on the previous/next
-                            // dimensions, so that sandwiched null values are visible
-                            if (i > 0) {
-                                var prev = coords[i - 1];
-                                if (prev !== null) {
-                                    ctx.moveTo(prev[0], prev[1]);
-                                    ctx.lineTo(prev[0] + 6, prev[1]);
-                                }
-                            }
-                            if (i < coords.length - 1) {
-                                var next = coords[i + 1];
-                                if (next !== null) {
-                                    ctx.moveTo(next[0] - 6, next[1]);
-                                }
-                            }
-                            return;
-                        }
+            };
 
-                        if (i == 0) {
-                            ctx.moveTo(p[0], p[1]);
-                            return;
-                        }
+            // New
+            var yAxis = d3.axisLeft();
 
-                        ctx.lineTo(p[0], p[1]);
-                    });
-                    ctx.stroke();
-                }
+            var container = d3.select("body").append("div")
+                .attr("class", "parcoords")
+                .style("width", width + margin.left + margin.right + "px")
+                .style("height", height + margin.top + margin.bottom + "px");
 
-                function brushstart() {
-                    d3.event.sourceEvent.stopPropagation();
-                }
+            var svg = container.append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                // Handles a brush event, toggling the display of foreground lines.
-                function brush() {
-                    render.invalidate();
+            var canvas = container.append("canvas")
+                .attr("width", width * devicePixelRatio)
+                .attr("height", height * devicePixelRatio)
+                .style("width", width + "px")
+                .style("height", height + "px")
+                .style("margin-top", margin.top + "px")
+                .style("margin-left", margin.left + "px");
 
-                    var actives = [];
-                    svg.selectAll(".axis .brush")
-                        .filter(function (d) {
-                            return d3.brushSelection(this);
-                        })
-                        .each(function (d) {
-                            actives.push({
-                                dimension: d,
-                                extent: d3.brushSelection(this)
-                            });
+            var ctx = canvas.node().getContext("2d");
+            ctx.globalCompositeOperation = 'darken';
+            ctx.globalAlpha = 0.15;
+            ctx.lineWidth = 1.5;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+
+            var output = d3.select("body").append("pre")
+                .style("width", width + margin.right + "px")
+                .style("margin-left", margin.left - 50 + "px");
+
+            selectedOption = d.data.key;
+            format = selectedOption.split(" ").join("+");
+            url = makeUrl(format);
+            ajax(url).then(function (result) {
+                // Here we can build the parallel coordinate system
+                myData = trim(result);
+                myDimensions = makeDimensions();
+                // use d3.csvParse(myData){...}
+                // see https://stackoverflow.com/questions/42285441/how-to-read-in-csv-with-d3-v4
+                //                    console.log(types, "check1");
+                dimensions = myDimensions;
+
+                var xscale = d3.scalePoint()
+                    .domain(d3.range(dimensions.length))
+                    .range([0, width]);
+
+                var axes = svg.selectAll(".axis")
+                    .data(dimensions)
+                    .enter().append("g")
+                    .attr("class", function (d) { return "axis " + d.key.replace(/ /g, "_"); })
+                    .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
+
+                d3.csvParse(myData, function (error, data) {
+                    data = d3.csvParse(myData);
+
+                    data.forEach(function (d) {
+                        dimensions.forEach(function (p) {
+                            d[p.key] = !d[p.key] ? null : p.type.coerce(d[p.key]);
                         });
 
-                    var selected = data.filter(function (d) {
-                        if (actives.every(function (active) {
-                            var dim = active.dimension;
-                            // test if point is within extents for each active brush
-                            return dim.type.within(d[dim.key], active.extent, dim);
-                        })) {
-                            return true;
+                        // truncate long text strings to fit in data table
+                        for (var key in d) {
+                            if (d[key] && d[key].length > 35) d[key] = d[key].slice(0, 36);
                         }
                     });
+
+                    // type/dimension default setting happens here
+                    dimensions.forEach(function (dim) {
+                        if (!("domain" in dim)) {
+                            // detect domain using dimension type's extent function
+                            dim.domain = d3_functor(dim.type.extent)(data.map(function (d) { return d[dim.key]; }));
+                        }
+                        if (!("scale" in dim)) {
+                            // use type's default scale for dimension
+                            dim.scale = dim.type.defaultScale.copy();
+                        }
+                        dim.scale.domain(dim.domain);
+                    });
+
+                    var render = renderQueue(draw).rate(30);
+
                     ctx.clearRect(0, 0, width, height);
-                    ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
-                    render(selected);
+                    ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);
+                    render(data);
+
+                    axes.append("g")
+                        .each(function (d) {
+                            var renderAxis = "axis" in d
+                                ? d.axis.scale(d.scale)  // custom axis
+                                : yAxis.scale(d.scale);  // default axis
+                            d3.select(this).call(renderAxis);
+                        })
+                        .append("text")
+                        .attr("class", "title")
+                        .attr("text-anchor", "start")
+                        .text(function (d) { return "description" in d ? d.description : d.key; });
+
+                    // Add and store a brush for each axis.
+                    axes.append("g")
+                        .attr("class", "brush")
+                        .each(function (d) {
+                            d3.select(this).call(d.brush = d3.brushY()
+                                .extent([[-10, 0], [10, height]])
+                                .on("start", brushstart)
+                                .on("brush", brush)
+                                .on("end", brush)
+                            )
+                        })
+                        .selectAll("rect")
+                        .attr("x", -8)
+                        .attr("width", 16);
+
+                    d3.selectAll(".axis.Rank .tick text")
+                        .style("fill", color);
 
 
                     //create a deep copy of the data
-                    let filteredSelected = JSON.parse(JSON.stringify(selected));
+                    let filteredSelected = JSON.parse(JSON.stringify(data));
                     //slice the date data
                     filteredSelected = sliceDates(filteredSelected);
                     //print
@@ -412,115 +316,313 @@ d3.json("data/dataX.json", function (error, root) {
                     //clean copy just in case
                     filteredSelected = {};
 
-                }
 
-            });
-        });
-        // New
-        function d3_functor(v) {
-            return typeof v === "function" ? v : function () { return v; };
-        };
+                    function project(d) {
+                        return dimensions.map(function (p, i) {
+                            // check if data element has property and contains a value
+                            if (
+                                !(p.key in d) ||
+                                d[p.key] === null
+                            ) return null;
 
-        // Returns csv of selected query
-        function ajax(url) {
-            return new Promise(function (resolve, reject) {
-                var xhr = new XMLHttpRequest();
-                xhr.onload = function () {
-                    resolve(this.responseText);
-                };
-                xhr.onerror = reject;
-                xhr.open('GET', url);
-                xhr.send();
-            });
-        };
+                            return [xscale(i), p.scale(d[p.key])];
+                        });
+                    };
+                    //slices the dates string to right size
+                    function sliceDates(container) {
+                        for (j = 0; j < container.length; j++) {
+                            //set to 10 due to the date format yyyy-mm-dd
+                            if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
+                            if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
+                            if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
+                            if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
+                            if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
+                            if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
 
-        // Formatting needed to have pure csv
-        function trim(s) {
-            var lines = s.split('\n');
-            lines.splice(0, 10);
-            for (i = 0; i < lines.length; i++) {
-                line = lines[i].split(',');
-                for (j = 0; j < line.length; j++) {
-                    if (line[j] == "") {
-                        line[j] = '"' + 0 + '"';
+                        }
+
+                        return container;
                     }
+
+                    function draw(d) {
+                        ctx.strokeStyle = color(d.pl_discmethod);
+                        ctx.beginPath();
+                        var coords = project(d);
+                        coords.forEach(function (p, i) {
+                            // this tricky bit avoids rendering null values as 0
+                            if (p === null) {
+                                // this bit renders horizontal lines on the previous/next
+                                // dimensions, so that sandwiched null values are visible
+                                if (i > 0) {
+                                    var prev = coords[i - 1];
+                                    if (prev !== null) {
+                                        ctx.moveTo(prev[0], prev[1]);
+                                        ctx.lineTo(prev[0] + 6, prev[1]);
+                                    }
+                                }
+                                if (i < coords.length - 1) {
+                                    var next = coords[i + 1];
+                                    if (next !== null) {
+                                        ctx.moveTo(next[0] - 6, next[1]);
+                                    }
+                                }
+                                return;
+                            }
+
+                            if (i == 0) {
+                                ctx.moveTo(p[0], p[1]);
+                                return;
+                            }
+
+                            ctx.lineTo(p[0], p[1]);
+                        });
+                        ctx.stroke();
+                    }
+
+                    function brushstart() {
+                        d3.event.sourceEvent.stopPropagation();
+                    }
+
+                    // Handles a brush event, toggling the display of foreground lines.
+                    function brush() {
+                        render.invalidate();
+
+                        var actives = [];
+                        svg.selectAll(".axis .brush")
+                            .filter(function (d) {
+                                return d3.brushSelection(this);
+                            })
+                            .each(function (d) {
+                                actives.push({
+                                    dimension: d,
+                                    extent: d3.brushSelection(this)
+                                });
+                            });
+
+                        var selected = data.filter(function (d) {
+                            if (actives.every(function (active) {
+                                var dim = active.dimension;
+                                // test if point is within extents for each active brush
+                                return dim.type.within(d[dim.key], active.extent, dim);
+                            })) {
+                                return true;
+                            }
+                        });
+                        ctx.clearRect(0, 0, width, height);
+                        ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
+                        render(selected);
+
+                        //create a deep copy of the data
+                        let filteredSelected = JSON.parse(JSON.stringify(selected));
+                        //slice the date data
+                        filteredSelected = sliceDates(filteredSelected);
+                        //print
+                        output.text(d3.tsvFormat(sliceDates(filteredSelected).slice(0, filteredSelected.length)));
+                        //clean copy just in case
+                        filteredSelected = {};
+
+                    }
+
+                });
+            });
+            // New
+            function d3_functor(v) {
+                return typeof v === "function" ? v : function () { return v; };
+            };
+
+            // Returns csv of selected query
+            function ajax(url) {
+                return new Promise(function (resolve, reject) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onload = function () {
+                        resolve(this.responseText);
+                    };
+                    xhr.onerror = reject;
+                    xhr.open('GET', url);
+                    xhr.send();
+                });
+            };
+
+            // Formatting needed to have pure csv
+            function trim(s) {
+                var lines = s.split('\n');
+                lines.splice(0, 10);
+                for (i = 0; i < lines.length; i++) {
+                    line = lines[i].split(',');
+                    for (j = 0; j < line.length; j++) {
+                        if (line[j] == "") {
+                            line[j] = '"' + 0 + '"';
+                        }
+                    }
+                    lines[i] = line.join(',');
                 }
-                lines[i] = line.join(',');
-            }
-            lines.splice(lines.length - 1, lines.length);
-            var newlines = lines.join('\n');
+                lines.splice(lines.length - 1, lines.length);
+                var newlines = lines.join('\n');
 
-            return newlines;
-        };
+                return newlines;
+            };
 
-        function makeUrl(disease) {
-            // Grab title and trial name of diseases
-            return "https://clinicaltrials.gov/api/query/study_fields?expr=" + disease + "%0D%0A&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv";
-        }
+            /*
+             * Make Url
+             * Take query and URL it:
+             * "Expression: AREA[Condition]Abscess AND AREA[StartDate]RANGE[01/01/2015, MAX] AND AREA[Gender]Female AND AREA[StdAge](Child OR Adult)"
+             *      all ' ' -> +
+             *      all ',' -> %2C
+             *      all '[' -> %5B ; all ']' -> %5D
+             *      all '(' -> %28 ; all ')' ->
+             *      all '/' -> %2F
+             */
+            function makeUrl(disease) {
+                // Grab title and trial name of diseases
+                url = "https://clinicaltrials.gov/api/query/study_fields?expr="
+                query = "AREA[Condition]" + disease;
 
-        function makeDimensions() {
-            dim = []
-            if (document.getElementById("Phase").checked) {
-                dim = dim.concat({
-                    key: "Phase",
-                    description: "Phase",
-                    type: types["String"]
-                })
+                // Check for Start Date - Done
+                dateFilter = document.getElementById("FilterbyDate");
+                if (dateFilter.checked) {
+                    query = query.concat(" AND AREA[StartDate]RANGE[");
+                    //year, month, day
+                    rangeStart = document.getElementById("rangeDateStart").value.split('-');
+                    rangeEnd = document.getElementById("rangeDateEnd").value.split('-');
+                    if (rangeStart == [""]) {
+                        query = query.concat("MIN, ");
+                    } else {
+                        query = query.concat(rangeStart[2] + "/" + rangeStart[1] + "/" + rangeStart[0] + ", ");
+                    };
+                    if (rangeEnd[0] == "") {
+                        query = query.concat("MAX]");
+
+                    } else {
+                        query = query.concat(rangeEnd[2] + "/" + rangeEnd[1] + "/" + rangeEnd[0] + "]");
+                    };
+                }
+
+                // Check for Enrollment Count - Done
+                enrollmentFilter = document.getElementById("FilterbyEnrollment");
+                if (enrollmentFilter.checked) {
+                    query = query.concat(" AND AREA[EnrollmentCount]RANGE[");
+
+                    minEnrollment = document.getElementById("minEnrollment").value;
+                    maxEnrollment = document.getElementById("maxEnrollment").value;
+                    if (minEnrollment == "") {
+                        query = query.concat("MIN, ");
+                    } else {
+                        query = query.concat(minEnrollment + ", ");
+                    };
+                    if (maxEnrollment == "") {
+                        query = query.concat("MAX]");
+
+                    } else {
+                        query = query.concat(maxEnrollment + "]");
+                    };
+                }
+
+                // Check for Age Group - Done
+                ageValue = document.getElementById("age").value
+                if (ageValue != "") {
+                    query = query.concat(" AND AREA[StdAge]");
+                    if (ageValue == "child") { query = query.concat("Child"); }
+                    if (ageValue == "childadult") { query = query.concat("(Child OR Adult)"); }
+                    if (ageValue == "adult") { query = query.concat("Adult"); }
+                    if (ageValue == "adultold") { query = query.concat("(Adult OR Older Adult)"); }
+                    if (ageValue == "old") { query = query.concat("Older Adult"); }
+                }
+
+                // Check for Gender - Done
+                genderValue = document.getElementById("gender").value
+                if (genderValue != "") {
+                    query = query.concat(" AND AREA[Gender]");
+                    if (genderValue == "female") { query = query.concat("(Female OR All)"); }
+                    if (genderValue == "male") { query = query.concat("(Male OR All)"); }
+                    if (genderValue == "onlyfemale") { query = query.concat("Female"); }
+                    if (genderValue == "onlymale") { query = query.concat("Male"); }
+                }
+                // Swap out special characters
+                for (i = 0; i < query.length; i++) {
+                    char = query[i];
+                    if (char == ' ') { url = url.concat("+"); }
+                    else if (char == ',') { url = url.concat("%2C"); }
+                    else if (char == '[') { url = url.concat("%5B"); }
+                    else if (char == ']') { url = url.concat("%5D"); }
+                    else if (char == '(') { url = url.concat("%28"); }
+                    else if (char == ')') { url = url.concat("%29"); }
+                    else if (char == '/') { url = url.concat("%2F"); }
+                    else { url = url.concat(char); }
+                }
+                // Check for number of trials
+                url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+                //console.log(url);
+                return url;
             }
 
-            if (document.getElementById("EnrollmentCount").checked) {
-                dim = dim.concat({
-                    key: "EnrollmentCount",
-                    description: "Enrollment Count",
-                    type: types["Number"]
-                });
-            }
-            if (document.getElementById("StartDate").checked) {
-                dim = dim.concat({
-                    key: "StartDate",
-                    description: "Start Date",
-                    type: types["Date"]
-                });
-            }
-            if (document.getElementById("CompletionDate").checked) {
-                dim = dim.concat({
-                    key: "CompletionDate",
-                    description: "Completion Date",
-                    type: types["Date"]
-                });
-            }
-            if (document.getElementById("LastUpdatePostDate").checked) {
-                dim = dim.concat({
-                    key: "LastUpdatePostDate",
-                    description: "Last Update Post Date",
-                    type: types["Date"]
-                });
-            }
-            if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
-                dim = dim.concat({
-                    key: "OutcomeMeasureAnticipatedPostingDate",
-                    description: "Outcome Measure Anticipated Posting Date",
-                    type: types["Date"]
-                });
-            }
-            if (document.getElementById("ResultsFirstPostDate").checked) {
-                dim = dim.concat({
-                    key: "ResultsFirstPostDate",
-                    description: "Results First Post Date",
-                    type: types["Date"]
-                });
-            }
-            if (document.getElementById("ResultsFirstSubmitDate").checked) {
-                dim = dim.concat({
-                    key: "ResultsFirstSubmitDate",
-                    description: "Results First Submit Date",
-                    type: types["Date"]
-                });
-            }
 
-            $("#loading").html("");
+            function makeDimensions() {
+                dim = []
+                if (document.getElementById("Phase").checked) {
+                    dim = dim.concat({
+                        key: "Phase",
+                        description: "Phase",
+                        type: types["String"]
+                    })
+                }
 
-            return dim;
+                if (document.getElementById("EnrollmentCount").checked) {
+                    dim = dim.concat({
+                        key: "EnrollmentCount",
+                        description: "Enrollment Count",
+                        type: types["Number"]
+                    });
+                }
+                if (document.getElementById("StartDate").checked) {
+                    dim = dim.concat({
+                        key: "StartDate",
+                        description: "Start Date",
+                        type: types["Date"]
+                    });
+                }
+                if (document.getElementById("CompletionDate").checked) {
+                    dim = dim.concat({
+                        key: "CompletionDate",
+                        description: "Completion Date",
+                        type: types["Date"]
+                    });
+                }
+                if (document.getElementById("LastUpdatePostDate").checked) {
+                    dim = dim.concat({
+                        key: "LastUpdatePostDate",
+                        description: "Last Update Post Date",
+                        type: types["Date"]
+                    });
+                }
+                if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
+                    dim = dim.concat({
+                        key: "OutcomeMeasureAnticipatedPostingDate",
+                        description: "Outcome Measure Anticipated Posting Date",
+                        type: types["Date"]
+                    });
+                }
+                if (document.getElementById("ResultsFirstPostDate").checked) {
+                    dim = dim.concat({
+                        key: "ResultsFirstPostDate",
+                        description: "Results First Post Date",
+                        type: types["Date"]
+                    });
+                }
+                if (document.getElementById("ResultsFirstSubmitDate").checked) {
+                    dim = dim.concat({
+                        key: "ResultsFirstSubmitDate",
+                        description: "Results First Submit Date",
+                        type: types["Date"]
+                    });
+                }
+
+                $("#loading").html("");
+
+                return dim;
+            }
+        } else {
+            d3.select(".parcoords").remove();
+            d3.select("pre").remove();
         }
     }
     function f_search() {
@@ -774,46 +876,46 @@ function switchData(d, isSearch = 0) {
 
             //add loading
             $("#loading").html('<center><div class="preloader-wrapper big active">'
-            +'<div class="spinner-layer spinner-blue">'
-              +'<div class="circle-clipper left">'
-                +'<div class="circle"></div>'
-              +'</div><div class="gap-patch">'
-                +'<div class="circle"></div>'
-              +'</div><div class="circle-clipper right">'
-                +'<div class="circle"></div>'
-              +'</div>'
-            +'</div>'
-      
-            +'<div class="spinner-layer spinner-red">'
-              +'<div class="circle-clipper left">'
-                +'<div class="circle"></div>'
-              +'</div><div class="gap-patch">'
-                +'<div class="circle"></div>'
-              +'</div><div class="circle-clipper right">'
-                +'<div class="circle"></div>'
-              +'</div>'
-            +'</div>'
-      
-            +'<div class="spinner-layer spinner-yellow">'
-              +'<div class="circle-clipper left">'
-                +'<div class="circle"></div>'
-              +'</div><div class="gap-patch">'
-                +'<div class="circle"></div>'
-              +'</div><div class="circle-clipper right">'
-                +'<div class="circle"></div>'
-              +'</div>'
-            +'</div>'
-      
-            +'<div class="spinner-layer spinner-green">'
-              +'<div class="circle-clipper left">'
-                +'<div class="circle"></div>'
-              +'</div><div class="gap-patch">'
-                +'<div class="circle"></div>'
-              +'</div><div class="circle-clipper right">'
-                +'<div class="circle"></div>'
-              +'</div>'
-            +'</div>'
-          +'</div></center>');
+                + '<div class="spinner-layer spinner-blue">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="spinner-layer spinner-red">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="spinner-layer spinner-yellow">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="spinner-layer spinner-green">'
+                + '<div class="circle-clipper left">'
+                + '<div class="circle"></div>'
+                + '</div><div class="gap-patch">'
+                + '<div class="circle"></div>'
+                + '</div><div class="circle-clipper right">'
+                + '<div class="circle"></div>'
+                + '</div>'
+                + '</div>'
+                + '</div></center>');
 
             //add refresh of parcoord when information changed
             $(".refresh").click(function () {
