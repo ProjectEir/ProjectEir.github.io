@@ -154,6 +154,14 @@ d3.json("data/dataX.json", function (error, root) {
                 parallelcoordinatesBySearch(d);
             });
 
+            
+            //add click to apply filter
+            $("#apply_filters").click(function(){
+                d3.select("pre").remove();
+                switchData(d, 1212);
+                parallelcoordinatesBySearch(d);
+            });
+
             var margin = { top: 66, right: 110, bottom: 20, left: 288 },
                 width = document.body.clientWidth - margin.left - margin.right,
                 height = 340 - margin.top - margin.bottom,
@@ -625,6 +633,7 @@ d3.json("data/dataX.json", function (error, root) {
             d3.select("pre").remove();
         }
     }
+
     function f_search() {
         var disease = $('#search_disease').val();
         if (disease != "") {
@@ -922,6 +931,13 @@ function switchData(d, isSearch = 0) {
                 d3.select("pre").remove();
                 switchData(d);
                 parcoords(d);
+            });
+
+            //add click to apply filter
+            $("#apply_filters").click(function(){
+                d3.select("pre").remove();
+                switchData(d);
+                parcoords(d)
             });
 
             var margin = { top: 66, right: 110, bottom: 20, left: 288 },

@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
@@ -58,10 +58,6 @@
         <li>
             <div class="divider"></div>
         </li>
-        <!--
-          <li><a class="subheader">Subheader</a></li>
-          <li><a class="waves-effect" href="#!">Second Filter</a></li>
-        -->
 
         <div id="buttons" style="margin: 10px;">
             <!-- PARALLEL COORDINATE AXES -->
@@ -79,7 +75,7 @@
             <input type="checkbox" id="LastUpdatePostDate" value="LastUpdatePostDate" class="refresh" />
             <label for="LastUpdatePostDate"> Last Update Post Date </label><br />
             <input type="checkbox" id="OutcomeMeasureAnticipatedPostingDate"
-                   value="OutcomeMeasureAnticipatedPostingDate" class="refresh" />
+                value="OutcomeMeasureAnticipatedPostingDate" class="refresh" />
             <label for="OutcomeMeasureAnticipatedPostingDate">
                 Outcome Measure Anticipated Posting Date
             </label><br />
@@ -166,7 +162,9 @@
                 <option value="onlyfemale">Only Females</option>
                 <option value="onlymale">Only Males</option>
             </select>
-
+            <div class="input-field col s12">
+                <input type="button" value="Apply" id="apply_filters" class="waves-effect waves-light btn teal" />
+            </div>
             <br /><br /><br />
             <li>
                 <div class="divider"></div>
@@ -187,7 +185,7 @@
     </div>
 
     <div id="loading"></div>
-    
+
     <script type="text/javascript" src="script/datasearch.js"></script>
 </body>
 
