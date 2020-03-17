@@ -154,9 +154,9 @@ d3.json("data/dataX.json", function (error, root) {
                 parallelcoordinatesBySearch(d);
             });
 
-            
+
             //add click to apply filter
-            $("#apply_filters").click(function(){
+            $("#apply_filters").click(function () {
                 d3.select("pre").remove();
                 switchData(d, 1212);
                 parallelcoordinatesBySearch(d);
@@ -852,7 +852,7 @@ function switchData(d, isSearch = 0) {
             return x(d.x0);
         })
         .attr("y", function (a) {
-            if (d.height != 1 && a.height != 2) { return y(a.y0) - (height / 4 + 5);}
+            if (d.height != 1 && a.height != 2) { return y(a.y0) - (height / 4 + 5); }
             if (d.height == 1 && a.height == 0) { return y(a.y0) - (height / 2 - 40); }
             return y(a.y0);
         })
@@ -941,7 +941,7 @@ function switchData(d, isSearch = 0) {
             });
 
             //add click to apply filter
-            $("#apply_filters").click(function(){
+            $("#apply_filters").click(function () {
                 d3.select("pre").remove();
                 switchData(d);
                 parcoords(d)
@@ -1434,6 +1434,9 @@ function switchData(d, isSearch = 0) {
             return x(d.x0);
         })
         .attr("y", function (a) {
+            console.log(d);
+            console.log(a);
+            if (d.height == 0 && a.height == 0) { return 0; }
             if (d.height != 1 && a.height != 2) { return y(a.y0) - (height / 4 + 5); }
             return y(a.y0);
         })
