@@ -654,10 +654,13 @@ d3.json("data/dataX.json", function (error, root) {
                 }
                 i++;
             }
-
-            switchData(obj, 1212);
-            parallelcoordinatesBySearch(obj);
-            $('#search_disease').val("");
+            if(found){
+                switchData(obj, 1212);
+                parallelcoordinatesBySearch(obj);
+                $('#search_disease').val("");
+            } else {
+                alert("Disease not found!");
+            }
         } else {
             alert("Empty search!");
         }
