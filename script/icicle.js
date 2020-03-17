@@ -343,7 +343,6 @@ d3.json("data/dataX.json", function (error, root) {
                             if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
                             if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
                             if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
-                            if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
                             if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
                             if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
 
@@ -602,13 +601,13 @@ d3.json("data/dataX.json", function (error, root) {
                         type: types["Date"]
                     });
                 }
-                if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
+                /*if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
                     dim = dim.concat({
                         key: "OutcomeMeasureAnticipatedPostingDate",
                         description: "Outcome Measure Anticipated Posting Date",
                         type: types["Date"]
                     });
-                }
+                }*/
                 if (document.getElementById("ResultsFirstPostDate").checked) {
                     dim = dim.concat({
                         key: "ResultsFirstPostDate",
@@ -1122,7 +1121,6 @@ function switchData(d, isSearch = 0) {
                             if (container[j].StartDate) container[j].StartDate = container[j].StartDate.toString().slice(0, 10);
                             if (container[j].CompletionDate) container[j].CompletionDate = container[j].CompletionDate.toString().slice(0, 10);
                             if (container[j].LastUpdatePostDate) container[j].LastUpdatePostDate = container[j].LastUpdatePostDate.toString().slice(0, 10);
-                            if (container[j].OutcomeMeasureAnticipatedPostingDate) container[j].OutcomeMeasureAnticipatedPostingDate = container[j].OutcomeMeasureAnticipatedPostingDate.toString().slice(0, 10);
                             if (container[j].ResultsFirstPostDate) container[j].ResultsFirstPostDate = container[j].ResultsFirstPostDate.toString().slice(0, 10);
                             if (container[j].ResultsFirstSubmitDate) container[j].ResultsFirstSubmitDate = container[j].ResultsFirstSubmitDate.toString().slice(0, 10);
 
@@ -1381,13 +1379,13 @@ function switchData(d, isSearch = 0) {
                         type: types["Date"]
                     });
                 }
-                if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
+                /*if (document.getElementById("OutcomeMeasureAnticipatedPostingDate").checked) {
                     dim = dim.concat({
                         key: "OutcomeMeasureAnticipatedPostingDate",
                         description: "Outcome Measure Anticipated Posting Date",
                         type: types["Date"]
                     });
-                }
+                }*/
                 if (document.getElementById("ResultsFirstPostDate").checked) {
                     dim = dim.concat({
                         key: "ResultsFirstPostDate",
