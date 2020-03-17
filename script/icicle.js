@@ -557,7 +557,7 @@ d3.json("data/dataX.json", function (error, root) {
                     else { url = url.concat(char); }
                 }
                 // Check for number of trials
-                url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+                url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+OverallStatus%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
                 //console.log(url);
                 return url;
             }
@@ -620,6 +620,13 @@ d3.json("data/dataX.json", function (error, root) {
                         key: "ResultsFirstSubmitDate",
                         description: "Results First Submit Date",
                         type: types["Date"]
+                    });
+                }
+                if (document.getElementById("OverallStatus").checked) {
+                    dim = dim.concat({
+                        key: "OverallStatus",
+                        description: "OverallStatus",
+                        type: types["String"]
                     });
                 }
 
@@ -1335,7 +1342,7 @@ function switchData(d, isSearch = 0) {
                     else { url = url.concat(char); }
                 }
                 // Check for number of trials
-                url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
+                url = url.concat("&fields=BriefTitle%2C+Condition%2C+Phase%2C+OverallStatus%2C+EnrollmentCount%2C+StartDate%2C+CompletionDate%2C+LastUpdatePostDate%2C+OutcomeMeasureAnticipatedPostingDate%2C+ResultsFirstPostDate%2C+ResultsFirstSubmitDate&min_rnk=1&max_rnk=50&fmt=csv");
                 //console.log(url);
                 return url;
             }
@@ -1398,6 +1405,13 @@ function switchData(d, isSearch = 0) {
                         key: "ResultsFirstSubmitDate",
                         description: "Results First Submit Date",
                         type: types["Date"]
+                    });
+                }
+                if (document.getElementById("OverallStatus").checked) {
+                    dim = dim.concat({
+                        key: "OverallStatus",
+                        description: "OverallStatus",
+                        type: types["String"]
                     });
                 }
 
