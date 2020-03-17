@@ -1434,8 +1434,6 @@ function switchData(d, isSearch = 0) {
             return x(d.x0);
         })
         .attr("y", function (a) {
-            console.log(d);
-            console.log(a);
             if (d.height == 0 && a.height == 0) { return 0; }
             if (d.height != 1 && a.height != 2) { return y(a.y0) - (height / 4 + 5); }
             return y(a.y0);
